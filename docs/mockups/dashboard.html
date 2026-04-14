@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Author Portal — Dashboard Mockup</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; background:#f5f6f8; color:#1a1a2e; }
+
+  /* Top Nav */
+  .topnav { background:#1a1a2e; color:white; padding:0 24px; display:flex; align-items:center; height:52px; }
+  .topnav-brand { display:flex; align-items:center; gap:12px; margin-right:32px; }
+  .topnav-brand .logo { width:28px; height:28px; background:#4a90d9; border-radius:6px; }
+  .topnav-brand span { font-weight:600; font-size:15px; }
+  .topnav-links { display:flex; align-items:center; gap:24px; font-size:13px; }
+  .topnav-links a { color:#9a9ab0; text-decoration:none; padding:16px 0; border-bottom:2px solid transparent; transition:all 0.2s; }
+  .topnav-links a.active { color:white; border-bottom-color:#4a90d9; }
+  .topnav-links a:hover { color:white; }
+  .topnav-links .badge { background:#e74c3c; color:white; border-radius:10px; padding:1px 6px; font-size:10px; margin-left:4px; }
+  .topnav-right { display:flex; align-items:center; gap:16px; margin-left:auto; }
+  .topnav-right .icon { color:#9a9ab0; font-size:18px; cursor:pointer; }
+  .topnav-right .icon:hover { color:white; }
+  .avatar { width:32px; height:32px; background:#4a5568; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:11px; color:white; font-weight:600; cursor:pointer; }
+
+  /* Contextual Tabs */
+  .subtabs { background:white; border-bottom:1px solid #e2e4e9; padding:0 24px; display:flex; gap:24px; font-size:12px; }
+  .subtabs a { color:#888; text-decoration:none; padding:10px 0; border-bottom:2px solid transparent; transition:all 0.2s; }
+  .subtabs a.active { color:#1a1a2e; border-bottom-color:#4a90d9; font-weight:500; }
+  .subtabs a:hover { color:#1a1a2e; }
+
+  /* Main Content */
+  .main { max-width:1200px; margin:0 auto; padding:24px; }
+  .page-header { margin-bottom:20px; }
+  .page-header h1 { font-size:22px; font-weight:600; }
+  .page-header .subtitle { font-size:13px; color:#888; margin-top:4px; }
+
+  /* Stats Cards */
+  .stats { display:grid; grid-template-columns:repeat(4, 1fr); gap:16px; margin-bottom:24px; }
+  .stat-card { background:white; border:1px solid #e2e4e9; border-radius:10px; padding:18px; }
+  .stat-card .label { font-size:11px; color:#888; text-transform:uppercase; letter-spacing:0.5px; }
+  .stat-card .value { font-size:28px; font-weight:700; margin-top:6px; }
+  .stat-card .value.warning { color:#e67e22; }
+  .stat-card .value.info { color:#4a90d9; }
+  .stat-card .value.success { color:#27ae60; }
+  .stat-card .trend { font-size:10px; color:#888; margin-top:4px; }
+
+  /* Two Column Layout */
+  .two-col { display:grid; grid-template-columns:2fr 1fr; grid-template-rows:auto auto; gap:20px; }
+  .two-col .card { display:flex; flex-direction:column; }
+  .row-match-left { grid-column:1; grid-row:1; }
+  .row-match-right { grid-column:2; grid-row:1; }
+
+  /* Activity Feed */
+  .card { background:white; border:1px solid #e2e4e9; border-radius:10px; padding:20px; }
+  .card h3 { font-size:14px; font-weight:600; margin-bottom:14px; color:#1a1a2e; }
+  .activity-item { display:flex; gap:12px; padding:10px 0; border-bottom:1px solid #f0f1f3; font-size:12px; }
+  .activity-item:last-child { border-bottom:none; }
+  .activity-icon { width:32px; height:32px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:14px; flex-shrink:0; }
+  .activity-icon.blue { background:#eef3ff; }
+  .activity-icon.orange { background:#fff4e6; }
+  .activity-icon.green { background:#e8f5e9; }
+  .activity-icon.purple { background:#f3e8ff; }
+  .activity-text { flex:1; }
+  .activity-text .title { font-weight:500; color:#1a1a2e; }
+  .activity-text .meta { color:#888; font-size:11px; margin-top:2px; }
+
+  /* Titles List */
+  .title-row { display:flex; align-items:center; justify-content:space-between; padding:12px 0; border-bottom:1px solid #f0f1f3; }
+  .title-row:last-child { border-bottom:none; }
+  .title-info { display:flex; align-items:center; gap:12px; }
+  .title-cover { width:36px; height:52px; background:#e2e4e9; border-radius:4px; display:flex; align-items:center; justify-content:center; font-size:10px; color:#888; }
+  .title-name { font-size:13px; font-weight:500; }
+  .title-isbn { font-size:10px; color:#888; margin-top:2px; }
+  .status-badge { font-size:10px; padding:4px 10px; border-radius:20px; font-weight:500; }
+  .status-badge.production { background:#e8f5e9; color:#2e7d32; }
+  .status-badge.review { background:#fff4e6; color:#e67e22; }
+  .status-badge.draft { background:#eef3ff; color:#4a90d9; }
+  .status-badge.published { background:#f0f1f3; color:#555; }
+
+  /* Upcoming */
+  .deadline-item { display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:1px solid #f0f1f3; font-size:12px; }
+  .deadline-item:last-child { border-bottom:none; }
+  .deadline-date { font-size:11px; color:#e67e22; font-weight:500; }
+
+  /* Mockup label */
+  .mockup-label { position:fixed; bottom:16px; right:16px; background:#1a1a2e; color:white; padding:6px 14px; border-radius:6px; font-size:11px; font-family:system-ui; opacity:0.7; }
+</style>
+</head>
+<body>
+
+<!-- Top Navigation -->
+<nav class="topnav">
+  <div class="topnav-brand">
+    <div class="logo"></div>
+    <span>Acme Publishing</span>
+  </div>
+  <div class="topnav-links">
+    <a href="dashboard.html" class="active">Dashboard</a>
+    <a href="titles.html">My Titles</a>
+    <a href="manuscripts.html">Manuscripts</a>
+    <a href="production.html">Production</a>
+    <a href="messages.html">Messages <span class="badge">3</span></a>
+  </div>
+  <div class="topnav-right">
+    <span class="icon">&#9881;</span>
+    <span class="icon">&#128276;</span>
+    <div class="avatar">JD</div>
+  </div>
+</nav>
+
+<!-- Contextual Tabs -->
+<div class="subtabs">
+  <a href="#" class="active">Overview</a>
+  <a href="#">Activity</a>
+  <a href="#">Calendar</a>
+</div>
+
+<!-- Main Content -->
+<div class="main">
+  <div class="page-header">
+    <h1>Welcome back, Jane</h1>
+    <div class="subtitle">Here's what's happening with your titles</div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats">
+    <div class="stat-card">
+      <div class="label">Active Titles</div>
+      <div class="value">4</div>
+      <div class="trend">2 in production, 1 in review, 1 draft</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Pending Approvals</div>
+      <div class="value warning">2</div>
+      <div class="trend">1 cover proof, 1 page proof</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Unread Messages</div>
+      <div class="value info">3</div>
+      <div class="trend">From 2 editors</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Next Deadline</div>
+      <div class="value success">6d</div>
+      <div class="trend">Proof review — The Last Garden</div>
+    </div>
+  </div>
+
+  <!-- Two Column -->
+  <div class="two-col">
+      <!-- Activity Feed -->
+      <div class="card row-match-left">
+        <h3>Recent Activity</h3>
+        <div class="activity-item">
+          <div class="activity-icon blue">&#128196;</div>
+          <div class="activity-text">
+            <div class="title">Cover proof uploaded for "The Last Garden"</div>
+            <div class="meta">By Sarah Chen, Editor &middot; 2 hours ago</div>
+          </div>
+        </div>
+        <div class="activity-item">
+          <div class="activity-icon green">&#128176;</div>
+          <div class="activity-text">
+            <div class="title">Royalty statement Q4 2025 is now available</div>
+            <div class="meta">Royalties Department &middot; 1 day ago</div>
+          </div>
+        </div>
+        <div class="activity-item">
+          <div class="activity-icon purple">&#128172;</div>
+          <div class="activity-text">
+            <div class="title">Editor comment on Chapter 12 — "Midnight Protocol"</div>
+            <div class="meta">By Tom Baker, Senior Editor &middot; 2 days ago</div>
+          </div>
+        </div>
+        <div class="activity-item">
+          <div class="activity-icon orange">&#10003;</div>
+          <div class="activity-text">
+            <div class="title">Page proofs approved for "Seeds of Tomorrow"</div>
+            <div class="meta">You approved &middot; 3 days ago</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Titles -->
+      <div class="card" style="grid-column:1;grid-row:2;">
+        <h3>My Titles</h3>
+        <div class="title-row">
+          <div class="title-info">
+            <div class="title-cover">&#128218;</div>
+            <div>
+              <div class="title-name">The Last Garden</div>
+              <div class="title-isbn">978-0-123456-78-9 &middot; Literary Fiction</div>
+            </div>
+          </div>
+          <span class="status-badge production">In Production</span>
+        </div>
+        <div class="title-row">
+          <div class="title-info">
+            <div class="title-cover">&#128218;</div>
+            <div>
+              <div class="title-name">Midnight Protocol</div>
+              <div class="title-isbn">978-0-123456-79-6 &middot; Thriller</div>
+            </div>
+          </div>
+          <span class="status-badge review">In Review</span>
+        </div>
+        <div class="title-row">
+          <div class="title-info">
+            <div class="title-cover">&#128218;</div>
+            <div>
+              <div class="title-name">Seeds of Tomorrow</div>
+              <div class="title-isbn">978-0-123456-80-2 &middot; Science Fiction</div>
+            </div>
+          </div>
+          <span class="status-badge production">In Production</span>
+        </div>
+        <div class="title-row">
+          <div class="title-info">
+            <div class="title-cover">&#128218;</div>
+            <div>
+              <div class="title-name">The Quiet Storm</div>
+              <div class="title-isbn">978-0-123456-81-9 &middot; Literary Fiction</div>
+            </div>
+          </div>
+          <span class="status-badge published">Published</span>
+        </div>
+      </div>
+
+      <!-- Deadlines -->
+      <div class="card row-match-right">
+        <h3>Upcoming Deadlines</h3>
+        <div class="deadline-item">
+          <div>
+            <div style="font-weight:500;">Review page proofs</div>
+            <div style="font-size:10px;color:#888;margin-top:2px;">The Last Garden</div>
+          </div>
+          <div class="deadline-date">Apr 20</div>
+        </div>
+        <div class="deadline-item">
+          <div>
+            <div style="font-weight:500;">Approve cover design</div>
+            <div style="font-size:10px;color:#888;margin-top:2px;">The Last Garden</div>
+          </div>
+          <div class="deadline-date">Apr 22</div>
+        </div>
+        <div class="deadline-item">
+          <div>
+            <div style="font-weight:500;">Final manuscript due</div>
+            <div style="font-size:10px;color:#888;margin-top:2px;">Midnight Protocol</div>
+          </div>
+          <div class="deadline-date">May 1</div>
+        </div>
+        <div class="deadline-item">
+          <div>
+            <div style="font-weight:500;">Author questionnaire</div>
+            <div style="font-size:10px;color:#888;margin-top:2px;">Midnight Protocol</div>
+          </div>
+          <div class="deadline-date">May 5</div>
+        </div>
+      </div>
+
+      <!-- Contacts -->
+      <div class="card" style="grid-column:2;grid-row:2;">
+        <h3>Your Contacts</h3>
+        <div class="deadline-item">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <div style="width:28px;height:28px;background:#4a90d9;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;color:white;font-weight:600;">SC</div>
+            <div>
+              <div style="font-weight:500;">Sarah Chen</div>
+              <div style="font-size:10px;color:#888;">Editor</div>
+            </div>
+          </div>
+          <div style="font-size:18px;color:#4a90d9;cursor:pointer;">&#9993;</div>
+        </div>
+        <div class="deadline-item">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <div style="width:28px;height:28px;background:#27ae60;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;color:white;font-weight:600;">TB</div>
+            <div>
+              <div style="font-weight:500;">Tom Baker</div>
+              <div style="font-size:10px;color:#888;">Senior Editor</div>
+            </div>
+          </div>
+          <div style="font-size:18px;color:#4a90d9;cursor:pointer;">&#9993;</div>
+        </div>
+        <div class="deadline-item">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <div style="width:28px;height:28px;background:#e67e22;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;color:white;font-weight:600;">LM</div>
+            <div>
+              <div style="font-weight:500;">Lisa Martinez</div>
+              <div style="font-size:10px;color:#888;">Production Manager</div>
+            </div>
+          </div>
+          <div style="font-size:18px;color:#4a90d9;cursor:pointer;">&#9993;</div>
+        </div>
+      </div>
+  </div>
+</div>
+
+<div class="mockup-label">MOCKUP — Author Portal Dashboard</div>
+
+</body>
+</html>

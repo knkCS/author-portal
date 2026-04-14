@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Author Portal — Title Detail Mockup</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; background:#f5f6f8; color:#1a1a2e; }
+  .topnav { background:#1a1a2e; color:white; padding:0 24px; display:flex; align-items:center; height:52px; }
+  .topnav-brand { display:flex; align-items:center; gap:12px; margin-right:32px; }
+  .topnav-brand .logo { width:28px; height:28px; background:#4a90d9; border-radius:6px; }
+  .topnav-brand span { font-weight:600; font-size:15px; }
+  .topnav-links { display:flex; align-items:center; gap:24px; font-size:13px; }
+  .topnav-links a { color:#9a9ab0; text-decoration:none; padding:16px 0; border-bottom:2px solid transparent; }
+  .topnav-links a.active { color:white; border-bottom-color:#4a90d9; }
+  .topnav-links .badge { background:#e74c3c; color:white; border-radius:10px; padding:1px 6px; font-size:10px; margin-left:4px; }
+  .topnav-right { display:flex; align-items:center; gap:16px; margin-left:auto; }
+  .topnav-right .icon { color:#9a9ab0; font-size:18px; cursor:pointer; }
+  .avatar { width:32px; height:32px; background:#4a5568; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:11px; color:white; font-weight:600; }
+  .subtabs { background:white; border-bottom:1px solid #e2e4e9; padding:0 24px; display:flex; gap:24px; font-size:12px; }
+  .subtabs a { color:#888; text-decoration:none; padding:10px 0; border-bottom:2px solid transparent; }
+  .subtabs a.active { color:#1a1a2e; border-bottom-color:#4a90d9; font-weight:500; }
+  .main { max-width:1200px; margin:0 auto; padding:24px; }
+  .breadcrumb { font-size:12px; color:#888; margin-bottom:16px; }
+  .breadcrumb a { color:#4a90d9; text-decoration:none; }
+  .card { background:white; border:1px solid #e2e4e9; border-radius:10px; padding:20px; }
+  .card h3 { font-size:14px; font-weight:600; margin-bottom:14px; color:#1a1a2e; }
+  .status-badge { font-size:10px; padding:4px 10px; border-radius:20px; font-weight:500; display:inline-block; }
+  .status-badge.production { background:#e8f5e9; color:#2e7d32; }
+
+  /* Title Header */
+  .title-header { display:flex; gap:24px; margin-bottom:24px; }
+  .title-cover-large { width:120px; height:170px; background:#e2e4e9; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:40px; color:#aaa; flex-shrink:0; }
+  .title-meta { flex:1; }
+  .title-meta h1 { font-size:22px; font-weight:600; margin-bottom:4px; }
+  .title-meta .isbn { font-size:13px; color:#888; margin-bottom:12px; }
+  .title-meta .meta-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:12px; }
+  .meta-item .label { font-size:10px; color:#888; text-transform:uppercase; letter-spacing:0.5px; }
+  .meta-item .val { font-size:13px; font-weight:500; margin-top:2px; }
+
+  /* Timeline */
+  .timeline { display:flex; gap:0; margin:20px 0; position:relative; }
+  .timeline::before { content:''; position:absolute; top:14px; left:0; right:0; height:3px; background:#e2e4e9; z-index:0; }
+  .timeline-step { flex:1; text-align:center; position:relative; z-index:1; }
+  .timeline-dot { width:28px; height:28px; border-radius:50%; margin:0 auto 6px; display:flex; align-items:center; justify-content:center; font-size:12px; color:white; font-weight:600; }
+  .timeline-dot.done { background:#27ae60; }
+  .timeline-dot.active { background:#4a90d9; box-shadow:0 0 0 4px rgba(74,144,217,0.2); }
+  .timeline-dot.pending { background:#e2e4e9; color:#888; }
+  .timeline-label { font-size:10px; color:#888; }
+  .timeline-label.active { color:#1a1a2e; font-weight:500; }
+
+  /* Grid layouts */
+  .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:20px; }
+  .grid-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:20px; margin-bottom:20px; }
+
+  /* Edition row */
+  .edition-row { display:flex; align-items:center; justify-content:space-between; padding:10px 0; border-bottom:1px solid #f0f1f3; font-size:12px; }
+  .edition-row:last-child { border-bottom:none; }
+  .edition-format { font-weight:500; }
+  .edition-isbn { color:#888; font-size:11px; }
+  .edition-date { color:#888; font-size:11px; }
+
+  /* File row */
+  .file-row { display:flex; align-items:center; justify-content:space-between; padding:10px 0; border-bottom:1px solid #f0f1f3; font-size:12px; }
+  .file-row:last-child { border-bottom:none; }
+  .file-icon { width:32px; height:32px; background:#eef3ff; border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:14px; margin-right:10px; }
+  .file-info { flex:1; display:flex; align-items:center; }
+  .file-name { font-weight:500; }
+  .file-meta { color:#888; font-size:10px; margin-top:1px; }
+  .file-action { color:#4a90d9; font-size:11px; cursor:pointer; text-decoration:none; font-weight:500; }
+
+  .mockup-label { position:fixed; bottom:16px; right:16px; background:#1a1a2e; color:white; padding:6px 14px; border-radius:6px; font-size:11px; font-family:system-ui; opacity:0.7; }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-brand"><div class="logo"></div><span>Acme Publishing</span></div>
+  <div class="topnav-links">
+    <a href="dashboard.html">Dashboard</a>
+    <a href="titles.html" class="active">My Titles</a>
+    <a href="manuscripts.html">Manuscripts</a>
+    <a href="production.html">Production</a>
+    <a href="messages.html">Messages <span class="badge">3</span></a>
+  </div>
+  <div class="topnav-right">
+    <span class="icon">&#9881;</span>
+    <span class="icon">&#128276;</span>
+    <div class="avatar">JD</div>
+  </div>
+</nav>
+
+<div class="subtabs">
+  <a href="#" class="active">Overview</a>
+  <a href="#">Manuscripts</a>
+  <a href="#">Production</a>
+  <a href="#">Contracts</a>
+  <a href="#">Royalties</a>
+</div>
+
+<div class="main">
+  <div class="breadcrumb"><a href="titles.html">My Titles</a> &rsaquo; The Last Garden</div>
+
+  <!-- Title Header -->
+  <div class="title-header">
+    <div class="title-cover-large">&#128218;</div>
+    <div class="title-meta">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <h1>The Last Garden</h1>
+        <span class="status-badge production">In Production</span>
+      </div>
+      <div class="isbn">ISBN 978-0-123456-78-9 &middot; Literary Fiction</div>
+      <div class="meta-grid">
+        <div class="meta-item">
+          <div class="label">Editor</div>
+          <div class="val">Sarah Chen</div>
+        </div>
+        <div class="meta-item">
+          <div class="label">Imprint</div>
+          <div class="val">Acme Literary</div>
+        </div>
+        <div class="meta-item">
+          <div class="label">Publication Date</div>
+          <div class="val">September 15, 2026</div>
+        </div>
+        <div class="meta-item">
+          <div class="label">Word Count</div>
+          <div class="val">87,400</div>
+        </div>
+        <div class="meta-item">
+          <div class="label">Contract Date</div>
+          <div class="val">March 10, 2025</div>
+        </div>
+        <div class="meta-item">
+          <div class="label">Advance</div>
+          <div class="val">$25,000</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Production Timeline -->
+  <div class="card" style="margin-bottom:20px;">
+    <h3>Production Timeline</h3>
+    <div class="timeline">
+      <div class="timeline-step">
+        <div class="timeline-dot done">&#10003;</div>
+        <div class="timeline-label">Manuscript<br>Accepted</div>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-dot done">&#10003;</div>
+        <div class="timeline-label">Copy<br>Editing</div>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-dot done">&#10003;</div>
+        <div class="timeline-label">Type-<br>setting</div>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-dot active">4</div>
+        <div class="timeline-label active">Proofing</div>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-dot pending">5</div>
+        <div class="timeline-label">Cover<br>Approval</div>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-dot pending">6</div>
+        <div class="timeline-label">Printing</div>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-dot pending">7</div>
+        <div class="timeline-label">Published</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <!-- Editions -->
+    <div class="card">
+      <h3>Editions</h3>
+      <div class="edition-row">
+        <div>
+          <div class="edition-format">Hardcover</div>
+          <div class="edition-isbn">978-0-123456-78-9</div>
+        </div>
+        <div class="edition-date">Sep 15, 2026</div>
+        <span class="status-badge production">In Production</span>
+      </div>
+      <div class="edition-row">
+        <div>
+          <div class="edition-format">Trade Paperback</div>
+          <div class="edition-isbn">978-0-123456-82-6</div>
+        </div>
+        <div class="edition-date">Mar 2027</div>
+        <span class="status-badge" style="background:#f0f1f3;color:#888;">Planned</span>
+      </div>
+      <div class="edition-row">
+        <div>
+          <div class="edition-format">eBook (EPUB)</div>
+          <div class="edition-isbn">978-0-123456-83-3</div>
+        </div>
+        <div class="edition-date">Sep 15, 2026</div>
+        <span class="status-badge production">In Production</span>
+      </div>
+      <div class="edition-row">
+        <div>
+          <div class="edition-format">Audiobook</div>
+          <div class="edition-isbn">978-0-123456-84-0</div>
+        </div>
+        <div class="edition-date">Oct 2026</div>
+        <span class="status-badge" style="background:#fff4e6;color:#e67e22;">Narrator TBD</span>
+      </div>
+    </div>
+
+    <!-- Latest Manuscripts -->
+    <div class="card">
+      <h3>Latest Manuscripts</h3>
+      <div class="file-row">
+        <div class="file-info">
+          <div class="file-icon">&#128196;</div>
+          <div>
+            <div class="file-name">TheLastGarden_Final_v3.docx</div>
+            <div class="file-meta">Uploaded Apr 2, 2026 &middot; 1.2 MB</div>
+          </div>
+        </div>
+        <a class="file-action">Download</a>
+      </div>
+      <div class="file-row">
+        <div class="file-info">
+          <div class="file-icon" style="background:#fff4e6;">&#128196;</div>
+          <div>
+            <div class="file-name">TheLastGarden_Proofs_Round1.pdf</div>
+            <div class="file-meta">Uploaded Apr 10, 2026 &middot; 4.8 MB &middot; Needs review</div>
+          </div>
+        </div>
+        <a class="file-action" style="color:#e67e22;">Review</a>
+      </div>
+      <div class="file-row">
+        <div class="file-info">
+          <div class="file-icon">&#127912;</div>
+          <div>
+            <div class="file-name">Cover_Option_A.jpg</div>
+            <div class="file-meta">Uploaded Apr 12, 2026 &middot; 2.1 MB &middot; Needs approval</div>
+          </div>
+        </div>
+        <a class="file-action" style="color:#e67e22;">Review</a>
+      </div>
+      <div class="file-row">
+        <div class="file-info">
+          <div class="file-icon">&#128196;</div>
+          <div>
+            <div class="file-name">TheLastGarden_CopyEdit_v2.docx</div>
+            <div class="file-meta">Uploaded Mar 15, 2026 &middot; 1.1 MB</div>
+          </div>
+        </div>
+        <a class="file-action">Download</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <!-- Pending Actions -->
+    <div class="card">
+      <h3>Pending Actions</h3>
+      <div class="file-row">
+        <div class="file-info">
+          <div class="file-icon" style="background:#fff4e6;">&#9888;</div>
+          <div>
+            <div class="file-name">Review page proofs — Round 1</div>
+            <div class="file-meta">Due: April 20, 2026</div>
+          </div>
+        </div>
+        <a class="file-action" style="background:#4a90d9;color:white;padding:6px 14px;border-radius:6px;text-decoration:none;font-size:11px;">Start Review</a>
+      </div>
+      <div class="file-row">
+        <div class="file-info">
+          <div class="file-icon" style="background:#fff4e6;">&#127912;</div>
+          <div>
+            <div class="file-name">Approve cover design</div>
+            <div class="file-meta">Due: April 22, 2026</div>
+          </div>
+        </div>
+        <a class="file-action" style="background:#4a90d9;color:white;padding:6px 14px;border-radius:6px;text-decoration:none;font-size:11px;">Review</a>
+      </div>
+    </div>
+
+    <!-- Recent Messages -->
+    <div class="card">
+      <h3>Messages about this Title</h3>
+      <div class="file-row">
+        <div class="file-info">
+          <div style="width:28px;height:28px;background:#4a90d9;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;color:white;font-weight:600;margin-right:10px;flex-shrink:0;">SC</div>
+          <div>
+            <div class="file-name">Sarah Chen</div>
+            <div class="file-meta">Proofs are ready for your review! Let me know if...</div>
+          </div>
+        </div>
+        <div style="font-size:10px;color:#888;">2h ago</div>
+      </div>
+      <div class="file-row">
+        <div class="file-info">
+          <div style="width:28px;height:28px;background:#e67e22;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;color:white;font-weight:600;margin-right:10px;flex-shrink:0;">LM</div>
+          <div>
+            <div class="file-name">Lisa Martinez</div>
+            <div class="file-meta">Cover design options attached. We went with the...</div>
+          </div>
+        </div>
+        <div style="font-size:10px;color:#888;">1d ago</div>
+      </div>
+      <div style="text-align:center;margin-top:10px;">
+        <a href="messages.html" style="color:#4a90d9;font-size:12px;text-decoration:none;font-weight:500;">View all messages &rarr;</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="mockup-label">MOCKUP — Title Detail View</div>
+</body>
+</html>
