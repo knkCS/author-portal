@@ -70,6 +70,25 @@
   .file-meta { color:#888; font-size:10px; margin-top:1px; }
   .file-action { color:#4a90d9; font-size:11px; cursor:pointer; text-decoration:none; font-weight:500; }
 
+  /* Royalties Chart */
+  .chart-card { background:white; border:1px solid #e2e4e9; border-radius:10px; padding:20px; margin-bottom:20px; }
+  .chart-card-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; }
+  .chart-card-header h3 { font-size:14px; font-weight:600; margin-bottom:0; }
+  .chart-card-header .chart-total { font-size:13px; color:#888; }
+  .chart-card-header .chart-total strong { font-size:18px; color:#1a1a2e; }
+  .chart-container { display:flex; align-items:flex-end; gap:0; height:150px; padding:0 4px; border-bottom:1px solid #e8e9ec; position:relative; }
+  .chart-container::before { content:''; position:absolute; top:0; left:0; right:0; bottom:0; background:repeating-linear-gradient(to bottom, transparent, transparent calc(25% - 1px), #f0f1f3 calc(25% - 1px), #f0f1f3 25%); pointer-events:none; }
+  .chart-y-labels { position:absolute; left:-36px; top:0; bottom:0; display:flex; flex-direction:column; justify-content:space-between; font-size:9px; color:#aaa; }
+  .chart-col { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; position:relative; z-index:1; padding:0 6px; }
+  .stacked-bar { width:100%; max-width:48px; display:flex; flex-direction:column-reverse; border-radius:4px 4px 0 0; overflow:hidden; }
+  .bar-segment { width:100%; }
+  .chart-col-label { font-size:10px; color:#888; margin-top:8px; text-align:center; }
+  .chart-col-total { font-size:9px; color:#555; font-weight:600; margin-bottom:4px; }
+  .chart-legend { display:flex; gap:16px; margin-top:14px; font-size:11px; color:#555; }
+  .chart-legend-item { display:flex; align-items:center; gap:5px; }
+  .chart-legend-dot { width:10px; height:10px; border-radius:3px; }
+  .chart-link { font-size:11px; color:#4a90d9; text-decoration:none; font-weight:500; }
+
   .mockup-label { position:fixed; bottom:16px; right:16px; background:#1a1a2e; color:white; padding:6px 14px; border-radius:6px; font-size:11px; font-family:system-ui; opacity:0.7; }
 </style>
 </head>
@@ -173,6 +192,76 @@
         <div class="timeline-dot pending">7</div>
         <div class="timeline-label">Published</div>
       </div>
+    </div>
+  </div>
+
+  <!-- Royalties Chart -->
+  <div class="chart-card">
+    <div class="chart-card-header">
+      <h3>Royalties — The Last Garden</h3>
+      <div style="display:flex;align-items:center;gap:16px;">
+        <div class="chart-total">Total: <strong>$18,420</strong></div>
+        <a href="title-royalties.html" class="chart-link">Full details &rarr;</a>
+      </div>
+    </div>
+    <div style="position:relative;padding-left:40px;">
+      <div class="chart-y-labels">
+        <span>$6k</span>
+        <span>$4.5k</span>
+        <span>$3k</span>
+        <span>$1.5k</span>
+        <span>$0</span>
+      </div>
+      <div class="chart-container">
+        <!-- Q3 2025 -->
+        <div class="chart-col">
+          <div class="chart-col-total">$1.1k</div>
+          <div class="stacked-bar">
+            <div class="bar-segment" style="height:18px;background:#4a90d9;" title="Hardcover: $620"></div>
+            <div class="bar-segment" style="height:8px;background:#27ae60;" title="eBook: $340"></div>
+            <div class="bar-segment" style="height:4px;background:#e67e22;" title="Audiobook: $120"></div>
+          </div>
+          <div class="chart-col-label">Q3 '25</div>
+        </div>
+        <!-- Q4 2025 -->
+        <div class="chart-col">
+          <div class="chart-col-total">$4.2k</div>
+          <div class="stacked-bar">
+            <div class="bar-segment" style="height:58px;background:#4a90d9;" title="Hardcover: $2,400"></div>
+            <div class="bar-segment" style="height:24px;background:#27ae60;" title="eBook: $1,200"></div>
+            <div class="bar-segment" style="height:12px;background:#e67e22;" title="Audiobook: $620"></div>
+          </div>
+          <div class="chart-col-label">Q4 '25</div>
+        </div>
+        <!-- Q1 2026 -->
+        <div class="chart-col">
+          <div class="chart-col-total">$5.8k</div>
+          <div class="stacked-bar">
+            <div class="bar-segment" style="height:74px;background:#4a90d9;" title="Hardcover: $3,100"></div>
+            <div class="bar-segment" style="height:36px;background:#27ae60;" title="eBook: $1,680"></div>
+            <div class="bar-segment" style="height:18px;background:#e67e22;" title="Audiobook: $1,020"></div>
+          </div>
+          <div class="chart-col-label">Q1 '26</div>
+        </div>
+        <!-- Q2 2026 (partial) -->
+        <div class="chart-col">
+          <div class="chart-col-total">$2.1k*</div>
+          <div class="stacked-bar" style="opacity:0.6;">
+            <div class="bar-segment" style="height:28px;background:#4a90d9;" title="Hardcover: $1,100"></div>
+            <div class="bar-segment" style="height:14px;background:#27ae60;" title="eBook: $640"></div>
+            <div class="bar-segment" style="height:6px;background:#e67e22;" title="Audiobook: $360"></div>
+          </div>
+          <div class="chart-col-label">Q2 '26*</div>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;">
+      <div class="chart-legend">
+        <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#4a90d9;"></div> Hardcover</div>
+        <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#27ae60;"></div> eBook</div>
+        <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#e67e22;"></div> Audiobook</div>
+      </div>
+      <div style="font-size:10px;color:#888;">* Q2 2026 partial &middot; Earn-out: 73.7% of $25,000 advance</div>
     </div>
   </div>
 
