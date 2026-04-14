@@ -26,5 +26,8 @@ Single title view showing production timeline, editions, latest manuscripts, pen
 ### [Production — Proof Review](production.html)
 Proof review workflow with page viewer, annotation tools, threaded comments, review status, and approve/reject actions.
 
+### [Title Detail — Royalties Tab](title-royalties.html)
+Royalties view within a title: earn-out progress, sales by quarter/format/channel, royalty statements with PDF download, rates with escalators, and reserves against returns.
+
 ### [Messages](messages.html)
 Threaded messaging between author and publisher contacts. Threads are grouped by context (title or "General"). Every conversation is scoped to a title or general topic.

@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Author Portal — Title Royalties Mockup</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; background:#f5f6f8; color:#1a1a2e; }
+  .topnav { background:#1a1a2e; color:white; padding:0 24px; display:flex; align-items:center; height:52px; }
+  .topnav-brand { display:flex; align-items:center; gap:12px; margin-right:32px; }
+  .topnav-brand .logo { width:28px; height:28px; background:#4a90d9; border-radius:6px; }
+  .topnav-brand span { font-weight:600; font-size:15px; }
+  .topnav-links { display:flex; align-items:center; gap:24px; font-size:13px; }
+  .topnav-links a { color:#9a9ab0; text-decoration:none; padding:16px 0; border-bottom:2px solid transparent; }
+  .topnav-links a.active { color:white; border-bottom-color:#4a90d9; }
+  .topnav-links .badge { background:#e74c3c; color:white; border-radius:10px; padding:1px 6px; font-size:10px; margin-left:4px; }
+  .topnav-right { display:flex; align-items:center; gap:16px; margin-left:auto; }
+  .topnav-right .icon { color:#9a9ab0; font-size:18px; }
+  .avatar { width:32px; height:32px; background:#4a5568; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:11px; color:white; font-weight:600; }
+  .subtabs { background:white; border-bottom:1px solid #e2e4e9; padding:0 24px; display:flex; gap:24px; font-size:12px; }
+  .subtabs a { color:#888; text-decoration:none; padding:10px 0; border-bottom:2px solid transparent; }
+  .subtabs a.active { color:#1a1a2e; border-bottom-color:#4a90d9; font-weight:500; }
+  .subtabs .tab-badge { background:#e74c3c; color:white; border-radius:10px; padding:1px 6px; font-size:9px; margin-left:3px; }
+  .main { max-width:1200px; margin:0 auto; padding:24px; }
+  .breadcrumb { font-size:12px; color:#888; margin-bottom:16px; }
+  .breadcrumb a { color:#4a90d9; text-decoration:none; }
+  .card { background:white; border:1px solid #e2e4e9; border-radius:10px; padding:20px; }
+  .card h3 { font-size:14px; font-weight:600; margin-bottom:14px; }
+
+  /* Stats row */
+  .stats { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:24px; }
+  .stat-card { background:white; border:1px solid #e2e4e9; border-radius:10px; padding:18px; }
+  .stat-card .label { font-size:11px; color:#888; text-transform:uppercase; letter-spacing:0.5px; }
+  .stat-card .value { font-size:24px; font-weight:700; margin-top:6px; }
+  .stat-card .trend { font-size:10px; color:#888; margin-top:4px; }
+  .stat-card .value.positive { color:#27ae60; }
+  .stat-card .value.info { color:#4a90d9; }
+
+  /* Earn-out progress */
+  .earnout-bar { margin-top:8px; }
+  .earnout-track { height:10px; background:#e2e4e9; border-radius:5px; overflow:hidden; position:relative; }
+  .earnout-fill { height:100%; border-radius:5px; background:linear-gradient(90deg, #4a90d9, #27ae60); }
+  .earnout-labels { display:flex; justify-content:space-between; font-size:10px; color:#888; margin-top:4px; }
+
+  /* Chart placeholder */
+  .chart { background:#f8f9fa; border:1px solid #e8e9ec; border-radius:8px; height:220px; display:flex; align-items:flex-end; justify-content:center; padding:20px 20px 30px; gap:6px; position:relative; }
+  .chart-bar { width:36px; border-radius:4px 4px 0 0; position:relative; display:flex; flex-direction:column; align-items:center; }
+  .chart-bar .bar-fill { width:100%; border-radius:4px 4px 0 0; }
+  .chart-bar .bar-label { font-size:9px; color:#888; margin-top:4px; position:absolute; bottom:-18px; white-space:nowrap; }
+  .chart-bar .bar-value { font-size:9px; color:#555; font-weight:600; position:absolute; top:-16px; }
+  .chart-legend { position:absolute; top:12px; right:16px; display:flex; gap:14px; font-size:10px; color:#888; }
+  .chart-legend span::before { content:''; display:inline-block; width:10px; height:10px; border-radius:2px; margin-right:4px; vertical-align:middle; }
+  .chart-legend .hc::before { background:#4a90d9; }
+  .chart-legend .eb::before { background:#27ae60; }
+  .chart-legend .ab::before { background:#e67e22; }
+
+  /* Grid */
+  .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:20px; }
+  .grid-3-1 { display:grid; grid-template-columns:2fr 1fr; gap:20px; margin-bottom:20px; }
+
+  /* Table */
+  .table { width:100%; border-collapse:collapse; font-size:12px; }
+  .table th { text-align:left; font-size:10px; color:#888; text-transform:uppercase; letter-spacing:0.5px; padding:8px 12px; border-bottom:2px solid #e2e4e9; font-weight:600; }
+  .table td { padding:10px 12px; border-bottom:1px solid #f0f1f3; }
+  .table tr:last-child td { border-bottom:none; }
+  .table .num { text-align:right; font-variant-numeric:tabular-nums; }
+  .table .positive { color:#27ae60; }
+  .table .total-row td { font-weight:600; border-top:2px solid #e2e4e9; }
+
+  /* Statement list */
+  .stmt-row { display:flex; align-items:center; justify-content:space-between; padding:12px 0; border-bottom:1px solid #f0f1f3; font-size:12px; }
+  .stmt-row:last-child { border-bottom:none; }
+  .stmt-icon { width:36px; height:36px; background:#eef3ff; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:16px; margin-right:12px; flex-shrink:0; }
+  .stmt-info { flex:1; display:flex; align-items:center; }
+  .stmt-name { font-weight:500; }
+  .stmt-meta { color:#888; font-size:10px; margin-top:1px; }
+  .stmt-amount { font-weight:600; font-variant-numeric:tabular-nums; }
+  .stmt-action { color:#4a90d9; font-size:11px; text-decoration:none; font-weight:500; margin-left:16px; }
+
+  .mockup-label { position:fixed; bottom:16px; right:16px; background:#1a1a2e; color:white; padding:6px 14px; border-radius:6px; font-size:11px; opacity:0.7; }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-brand"><div class="logo"></div><span>Acme Publishing</span></div>
+  <div class="topnav-links">
+    <a href="dashboard.html">Dashboard</a>
+    <a href="titles.html" class="active">My Titles</a>
+    <a href="manuscripts.html">Manuscripts</a>
+    <a href="production.html">Production</a>
+    <a href="messages.html">Messages <span class="badge">3</span></a>
+  </div>
+  <div class="topnav-right">
+    <span class="icon">&#9881;</span>
+    <span class="icon">&#128276;</span>
+    <div class="avatar">JD</div>
+  </div>
+</nav>
+
+<div class="subtabs">
+  <a href="title-detail.html">Overview</a>
+  <a href="#">Manuscripts</a>
+  <a href="#">Production</a>
+  <a href="#">Messages <span class="tab-badge">2</span></a>
+  <a href="#">Contracts</a>
+  <a href="#" class="active">Royalties</a>
+</div>
+
+<div class="main">
+  <div class="breadcrumb"><a href="titles.html">My Titles</a> &rsaquo; <a href="title-detail.html">The Last Garden</a> &rsaquo; Royalties</div>
+
+  <!-- Stats -->
+  <div class="stats">
+    <div class="stat-card">
+      <div class="label">Total Royalties Earned</div>
+      <div class="value">$18,420</div>
+      <div class="trend">Since publication (Sep 2025)</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Advance</div>
+      <div class="value info">$25,000</div>
+      <div class="trend">Paid in 3 installments</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Earned vs. Advance</div>
+      <div class="value" style="color:#e67e22;">73.7%</div>
+      <div class="earnout-bar">
+        <div class="earnout-track"><div class="earnout-fill" style="width:73.7%;"></div></div>
+        <div class="earnout-labels"><span>$0</span><span>$18,420 earned</span><span>$25,000</span></div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Last Payment</div>
+      <div class="value positive">$0</div>
+      <div class="trend">Pre-earn-out — no payment yet</div>
+    </div>
+  </div>
+
+  <!-- Sales chart + breakdown -->
+  <div class="grid-3-1">
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+        <h3 style="margin-bottom:0;">Sales by Quarter</h3>
+        <div style="display:flex;gap:6px;">
+          <button style="background:white;border:1px solid #e2e4e9;border-radius:6px;padding:4px 10px;font-size:10px;cursor:pointer;">Units</button>
+          <button style="background:#1a1a2e;color:white;border:1px solid #1a1a2e;border-radius:6px;padding:4px 10px;font-size:10px;cursor:pointer;">Revenue</button>
+        </div>
+      </div>
+      <div class="chart">
+        <div class="chart-legend">
+          <span class="hc">Hardcover</span>
+          <span class="eb">eBook</span>
+          <span class="ab">Audiobook</span>
+        </div>
+        <!-- Q4 2025 -->
+        <div style="display:flex;gap:3px;align-items:flex-end;">
+          <div class="chart-bar"><div class="bar-value">$4.2k</div><div class="bar-fill" style="height:100px;background:#4a90d9;"></div><div class="bar-label">Q4 '25</div></div>
+          <div class="chart-bar"><div class="bar-fill" style="height:60px;background:#27ae60;"></div></div>
+          <div class="chart-bar"><div class="bar-fill" style="height:30px;background:#e67e22;"></div></div>
+        </div>
+        <!-- Q1 2026 -->
+        <div style="display:flex;gap:3px;align-items:flex-end;margin-left:16px;">
+          <div class="chart-bar"><div class="bar-value">$5.8k</div><div class="bar-fill" style="height:130px;background:#4a90d9;"></div><div class="bar-label">Q1 '26</div></div>
+          <div class="chart-bar"><div class="bar-fill" style="height:80px;background:#27ae60;"></div></div>
+          <div class="chart-bar"><div class="bar-fill" style="height:50px;background:#e67e22;"></div></div>
+        </div>
+        <!-- Q2 2026 (partial) -->
+        <div style="display:flex;gap:3px;align-items:flex-end;margin-left:16px;">
+          <div class="chart-bar"><div class="bar-value">$2.1k</div><div class="bar-fill" style="height:50px;background:#4a90d9;opacity:0.6;"></div><div class="bar-label">Q2 '26*</div></div>
+          <div class="chart-bar"><div class="bar-fill" style="height:35px;background:#27ae60;opacity:0.6;"></div></div>
+          <div class="chart-bar"><div class="bar-fill" style="height:20px;background:#e67e22;opacity:0.6;"></div></div>
+        </div>
+      </div>
+      <div style="font-size:10px;color:#888;margin-top:8px;text-align:right;">* Q2 2026 partial — through March 2026</div>
+    </div>
+
+    <!-- Sales by format -->
+    <div class="card">
+      <h3>By Format (Lifetime)</h3>
+      <table class="table">
+        <thead>
+          <tr><th>Format</th><th class="num">Units</th><th class="num">Revenue</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Hardcover</td>
+            <td class="num">3,240</td>
+            <td class="num">$10,120</td>
+          </tr>
+          <tr>
+            <td>eBook</td>
+            <td class="num">4,810</td>
+            <td class="num">$5,680</td>
+          </tr>
+          <tr>
+            <td>Audiobook</td>
+            <td class="num">1,520</td>
+            <td class="num">$2,620</td>
+          </tr>
+          <tr class="total-row">
+            <td>Total</td>
+            <td class="num">9,570</td>
+            <td class="num">$18,420</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <!-- Sales by channel -->
+    <div class="card">
+      <h3>Sales by Channel (Lifetime)</h3>
+      <table class="table">
+        <thead>
+          <tr><th>Channel</th><th class="num">Units</th><th class="num">Revenue</th><th class="num">Share</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Amazon</td>
+            <td class="num">3,830</td>
+            <td class="num">$7,180</td>
+            <td class="num">39%</td>
+          </tr>
+          <tr>
+            <td>Barnes &amp; Noble</td>
+            <td class="num">1,440</td>
+            <td class="num">$3,100</td>
+            <td class="num">17%</td>
+          </tr>
+          <tr>
+            <td>Independent Bookstores</td>
+            <td class="num">1,150</td>
+            <td class="num">$2,780</td>
+            <td class="num">15%</td>
+          </tr>
+          <tr>
+            <td>Library / Institutional</td>
+            <td class="num">960</td>
+            <td class="num">$2,210</td>
+            <td class="num">12%</td>
+          </tr>
+          <tr>
+            <td>International</td>
+            <td class="num">870</td>
+            <td class="num">$1,650</td>
+            <td class="num">9%</td>
+          </tr>
+          <tr>
+            <td>Other / Direct</td>
+            <td class="num">1,320</td>
+            <td class="num">$1,500</td>
+            <td class="num">8%</td>
+          </tr>
+          <tr class="total-row">
+            <td>Total</td>
+            <td class="num">9,570</td>
+            <td class="num">$18,420</td>
+            <td class="num">100%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Royalty statements -->
+    <div class="card">
+      <h3>Royalty Statements</h3>
+      <div class="stmt-row">
+        <div class="stmt-info">
+          <div class="stmt-icon">&#128196;</div>
+          <div>
+            <div class="stmt-name">Q1 2026 Statement</div>
+            <div class="stmt-meta">Period: Jan 1 – Mar 31, 2026</div>
+          </div>
+        </div>
+        <div class="stmt-amount">$5,840</div>
+        <a class="stmt-action">View</a>
+        <a class="stmt-action">PDF</a>
+      </div>
+      <div class="stmt-row">
+        <div class="stmt-info">
+          <div class="stmt-icon">&#128196;</div>
+          <div>
+            <div class="stmt-name">Q4 2025 Statement</div>
+            <div class="stmt-meta">Period: Oct 1 – Dec 31, 2025</div>
+          </div>
+        </div>
+        <div class="stmt-amount">$4,220</div>
+        <a class="stmt-action">View</a>
+        <a class="stmt-action">PDF</a>
+      </div>
+      <div class="stmt-row">
+        <div class="stmt-info">
+          <div class="stmt-icon">&#128196;</div>
+          <div>
+            <div class="stmt-name">Q3 2025 Statement</div>
+            <div class="stmt-meta">Period: Jul 1 – Sep 30, 2025</div>
+          </div>
+        </div>
+        <div class="stmt-amount">$1,080</div>
+        <a class="stmt-action">View</a>
+        <a class="stmt-action">PDF</a>
+      </div>
+
+      <div style="margin-top:16px;padding-top:14px;border-top:1px solid #e2e4e9;">
+        <h3>Royalty Rates</h3>
+        <table class="table" style="margin-top:8px;">
+          <thead>
+            <tr><th>Format</th><th>Rate</th><th>Escalator</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Hardcover</td>
+              <td>10% of list</td>
+              <td>12.5% after 5,000 units</td>
+            </tr>
+            <tr>
+              <td>Paperback</td>
+              <td>7.5% of list</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td>eBook</td>
+              <td>25% of net</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td>Audiobook</td>
+              <td>25% of net</td>
+              <td>—</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reserves & returns -->
+  <div class="card">
+    <h3>Reserves Against Returns</h3>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;font-size:12px;">
+      <div>
+        <div style="font-size:10px;color:#888;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">Current Reserve</div>
+        <div style="font-size:20px;font-weight:700;color:#e67e22;">$2,760</div>
+        <div style="font-size:11px;color:#888;margin-top:4px;">15% of gross royalties held back</div>
+      </div>
+      <div>
+        <div style="font-size:10px;color:#888;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">Released to Date</div>
+        <div style="font-size:20px;font-weight:700;color:#27ae60;">$1,380</div>
+        <div style="font-size:11px;color:#888;margin-top:4px;">From Q3 &amp; Q4 2025 reserves</div>
+      </div>
+      <div>
+        <div style="font-size:10px;color:#888;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">Return Rate</div>
+        <div style="font-size:20px;font-weight:700;">8.2%</div>
+        <div style="font-size:11px;color:#888;margin-top:4px;">Industry avg: 12-15%</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="mockup-label">MOCKUP — Title Detail &rsaquo; Royalties</div>
+</body>
+</html>
