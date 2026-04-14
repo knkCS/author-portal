@@ -83,6 +83,25 @@
   .deadline-item:last-child { border-bottom:none; }
   .deadline-date { font-size:11px; color:#e67e22; font-weight:500; }
 
+  /* Royalties Chart */
+  .chart-card { background:white; border:1px solid #e2e4e9; border-radius:10px; padding:20px; margin-bottom:24px; }
+  .chart-card-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; }
+  .chart-card-header h3 { font-size:14px; font-weight:600; }
+  .chart-card-header .chart-total { font-size:13px; color:#888; }
+  .chart-card-header .chart-total strong { font-size:18px; color:#1a1a2e; }
+  .chart-container { display:flex; align-items:flex-end; gap:0; height:180px; padding:0 4px; border-bottom:1px solid #e8e9ec; position:relative; }
+  .chart-container::before { content:''; position:absolute; top:0; left:0; right:0; bottom:0; background:repeating-linear-gradient(to bottom, transparent, transparent calc(25% - 1px), #f0f1f3 calc(25% - 1px), #f0f1f3 25%); pointer-events:none; }
+  .chart-y-labels { position:absolute; left:-36px; top:0; bottom:0; display:flex; flex-direction:column; justify-content:space-between; font-size:9px; color:#aaa; padding:0 0 0 0; }
+  .chart-col { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; position:relative; z-index:1; padding:0 6px; }
+  .stacked-bar { width:100%; max-width:48px; display:flex; flex-direction:column-reverse; border-radius:4px 4px 0 0; overflow:hidden; }
+  .bar-segment { width:100%; transition:opacity 0.2s; }
+  .bar-segment:hover { opacity:0.8; }
+  .chart-col-label { font-size:10px; color:#888; margin-top:8px; text-align:center; }
+  .chart-col-total { font-size:9px; color:#555; font-weight:600; margin-bottom:4px; position:relative; z-index:2; }
+  .chart-legend { display:flex; gap:16px; margin-top:14px; font-size:11px; color:#555; flex-wrap:wrap; }
+  .chart-legend-item { display:flex; align-items:center; gap:5px; }
+  .chart-legend-dot { width:10px; height:10px; border-radius:3px; flex-shrink:0; }
+
   /* Mockup label */
   .mockup-label { position:fixed; bottom:16px; right:16px; background:#1a1a2e; color:white; padding:6px 14px; border-radius:6px; font-size:11px; font-family:system-ui; opacity:0.7; }
 </style>
@@ -144,6 +163,96 @@
       <div class="label">Next Deadline</div>
       <div class="value success">6d</div>
       <div class="trend">Proof review — The Last Garden</div>
+    </div>
+  </div>
+
+  <!-- Royalties Chart -->
+  <div class="chart-card">
+    <div class="chart-card-header">
+      <h3>Total Royalties</h3>
+      <div class="chart-total">Lifetime: <strong>$42,680</strong></div>
+    </div>
+    <div style="position:relative;padding-left:40px;">
+      <div class="chart-y-labels">
+        <span>$12k</span>
+        <span>$9k</span>
+        <span>$6k</span>
+        <span>$3k</span>
+        <span>$0</span>
+      </div>
+      <div class="chart-container">
+        <!-- Q1 2025 -->
+        <div class="chart-col">
+          <div class="chart-col-total">$3.2k</div>
+          <div class="stacked-bar">
+            <div class="bar-segment" style="height:32px;background:#4a90d9;" title="The Last Garden: $1,400"></div>
+            <div class="bar-segment" style="height:16px;background:#27ae60;" title="Seeds of Tomorrow: $980"></div>
+            <div class="bar-segment" style="height:10px;background:#e67e22;" title="The Quiet Storm: $820"></div>
+          </div>
+          <div class="chart-col-label">Q1 '25</div>
+        </div>
+        <!-- Q2 2025 -->
+        <div class="chart-col">
+          <div class="chart-col-total">$5.8k</div>
+          <div class="stacked-bar">
+            <div class="bar-segment" style="height:52px;background:#4a90d9;" title="The Last Garden: $2,800"></div>
+            <div class="bar-segment" style="height:24px;background:#27ae60;" title="Seeds of Tomorrow: $1,600"></div>
+            <div class="bar-segment" style="height:14px;background:#e67e22;" title="The Quiet Storm: $1,400"></div>
+          </div>
+          <div class="chart-col-label">Q2 '25</div>
+        </div>
+        <!-- Q3 2025 -->
+        <div class="chart-col">
+          <div class="chart-col-total">$8.4k</div>
+          <div class="stacked-bar">
+            <div class="bar-segment" style="height:68px;background:#4a90d9;" title="The Last Garden: $3,800"></div>
+            <div class="bar-segment" style="height:38px;background:#27ae60;" title="Seeds of Tomorrow: $2,600"></div>
+            <div class="bar-segment" style="height:20px;background:#e67e22;" title="The Quiet Storm: $2,000"></div>
+          </div>
+          <div class="chart-col-label">Q3 '25</div>
+        </div>
+        <!-- Q4 2025 -->
+        <div class="chart-col">
+          <div class="chart-col-total">$11.2k</div>
+          <div class="stacked-bar">
+            <div class="bar-segment" style="height:82px;background:#4a90d9;" title="The Last Garden: $4,600"></div>
+            <div class="bar-segment" style="height:52px;background:#27ae60;" title="Seeds of Tomorrow: $3,800"></div>
+            <div class="bar-segment" style="height:28px;background:#e67e22;" title="The Quiet Storm: $2,800"></div>
+          </div>
+          <div class="chart-col-label">Q4 '25</div>
+        </div>
+        <!-- Q1 2026 -->
+        <div class="chart-col">
+          <div class="chart-col-total">$10.8k</div>
+          <div class="stacked-bar">
+            <div class="bar-segment" style="height:76px;background:#4a90d9;" title="The Last Garden: $4,200"></div>
+            <div class="bar-segment" style="height:50px;background:#27ae60;" title="Seeds of Tomorrow: $3,600"></div>
+            <div class="bar-segment" style="height:24px;background:#e67e22;" title="The Quiet Storm: $2,400"></div>
+            <div class="bar-segment" style="height:12px;background:#9b59b6;" title="Midnight Protocol: $600"></div>
+          </div>
+          <div class="chart-col-label">Q1 '26</div>
+        </div>
+        <!-- Q2 2026 (partial) -->
+        <div class="chart-col">
+          <div class="chart-col-total">$3.3k*</div>
+          <div class="stacked-bar" style="opacity:0.6;">
+            <div class="bar-segment" style="height:28px;background:#4a90d9;" title="The Last Garden: $1,500"></div>
+            <div class="bar-segment" style="height:16px;background:#27ae60;" title="Seeds of Tomorrow: $1,000"></div>
+            <div class="bar-segment" style="height:6px;background:#e67e22;" title="The Quiet Storm: $500"></div>
+            <div class="bar-segment" style="height:4px;background:#9b59b6;" title="Midnight Protocol: $300"></div>
+          </div>
+          <div class="chart-col-label">Q2 '26*</div>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;">
+      <div class="chart-legend">
+        <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#4a90d9;"></div> The Last Garden</div>
+        <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#27ae60;"></div> Seeds of Tomorrow</div>
+        <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#e67e22;"></div> The Quiet Storm</div>
+        <div class="chart-legend-item"><div class="chart-legend-dot" style="background:#9b59b6;"></div> Midnight Protocol</div>
+      </div>
+      <div style="font-size:10px;color:#888;">* Q2 2026 partial</div>
     </div>
   </div>
 
