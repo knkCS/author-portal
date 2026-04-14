@@ -19,10 +19,6 @@ Research and documentation for the knk Author Portal — a SaaS solution for pub
 
 - [Feature Requirements](research/features/requirements.md) — 107 features across 8 categories with priority and complexity ratings
 
-### ERP Analysis
-
-- [knk ERP Blueprint Analysis](research/erp/knk-erp-blueprints.md) — Data model analysis and CMS blueprint definitions for knk Business Central entities
-
 ---
 
 ## Design

@@ -4,6 +4,9 @@ theme: jekyll-theme-minimal
 baseurl: "/author-portal"
 url: "https://knkcs.github.io"
 
+exclude:
+  - research/erp/
+
 defaults:
   - scope:
       path: ""
