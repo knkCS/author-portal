@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Author Portal — Content Editor Mockup</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; background:#f5f6f8; color:#1a1a2e; }
+  .topnav { background:#1a1a2e; color:white; padding:0 24px; display:flex; align-items:center; height:52px; }
+  .topnav-brand { display:flex; align-items:center; gap:12px; margin-right:32px; }
+  .topnav-brand .logo { width:28px; height:28px; background:#4a90d9; border-radius:6px; }
+  .topnav-brand span { font-weight:600; font-size:15px; }
+  .topnav-links { display:flex; align-items:center; gap:24px; font-size:13px; }
+  .topnav-links a { color:#9a9ab0; text-decoration:none; padding:16px 0; border-bottom:2px solid transparent; }
+  .topnav-links a.active { color:white; border-bottom-color:#4a90d9; }
+  .topnav-links .badge { background:#e74c3c; color:white; border-radius:10px; padding:1px 6px; font-size:10px; margin-left:4px; }
+  .topnav-right { display:flex; align-items:center; gap:16px; margin-left:auto; }
+  .topnav-right .icon { color:#9a9ab0; font-size:18px; }
+  .avatar { width:32px; height:32px; background:#4a5568; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:11px; color:white; font-weight:600; }
+  .subtabs { background:white; border-bottom:1px solid #e2e4e9; padding:0 24px; display:flex; gap:24px; font-size:12px; }
+  .subtabs a { color:#888; text-decoration:none; padding:10px 0; border-bottom:2px solid transparent; }
+  .subtabs a.active { color:#1a1a2e; border-bottom-color:#4a90d9; font-weight:500; }
+  .subtabs .tab-badge { background:#e74c3c; color:white; border-radius:10px; padding:1px 6px; font-size:9px; margin-left:3px; }
+
+  /* Editor layout */
+  .editor-layout { display:grid; grid-template-columns:1fr 360px; height:calc(100vh - 92px); }
+  .editor-layout.panel-collapsed { grid-template-columns:1fr 44px; }
+
+  /* Editor area */
+  .editor-area { display:flex; flex-direction:column; overflow:hidden; }
+
+  /* Editor toolbar */
+  .editor-toolbar { background:white; border-bottom:1px solid #e2e4e9; padding:0 16px; display:flex; align-items:center; height:44px; gap:4px; flex-shrink:0; overflow-x:auto; }
+  .tb-group { display:flex; align-items:center; gap:2px; padding:0 6px; border-right:1px solid #e8e9ec; }
+  .tb-group:last-child { border-right:none; }
+  .tb-btn { background:none; border:1px solid transparent; border-radius:5px; padding:5px 7px; font-size:13px; cursor:pointer; color:#555; display:flex; align-items:center; justify-content:center; min-width:28px; height:28px; }
+  .tb-btn:hover { background:#f0f1f3; color:#1a1a2e; }
+  .tb-btn.active { background:#eef3ff; color:#4a90d9; border-color:#d0dfff; }
+  .tb-select { background:white; border:1px solid #e2e4e9; border-radius:5px; padding:4px 8px; font-size:11px; color:#555; cursor:pointer; height:28px; }
+  .tb-divider { width:1px; height:20px; background:#e2e4e9; margin:0 4px; }
+  .tb-spacer { flex:1; }
+  .tb-label { font-size:10px; color:#888; margin-right:4px; }
+
+  /* Editor content */
+  .editor-content { flex:1; overflow-y:auto; padding:32px 48px; background:white; border-right:1px solid #e2e4e9; }
+  .editor-content-inner { max-width:720px; margin:0 auto; font-size:15px; line-height:1.8; color:#333; }
+
+  /* Editor typography */
+  .editor-content-inner h1 { font-size:24px; font-weight:600; color:#1a1a2e; margin-bottom:8px; line-height:1.3; }
+  .editor-content-inner h2 { font-size:19px; font-weight:600; color:#1a1a2e; margin-top:32px; margin-bottom:12px; line-height:1.3; }
+  .editor-content-inner h3 { font-size:16px; font-weight:600; color:#1a1a2e; margin-top:24px; margin-bottom:8px; }
+  .editor-content-inner p { margin-bottom:14px; }
+  .editor-content-inner .paragraph-num { color:#4a90d9; font-weight:600; font-size:13px; margin-right:6px; font-family:system-ui; }
+
+  /* Embedded quote block */
+  .content-embed { background:#f8f9fa; border:1px solid #e2e4e9; border-left:4px solid #4a90d9; border-radius:0 8px 8px 0; padding:16px 20px; margin:20px 0; position:relative; }
+  .content-embed-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
+  .content-embed-source { display:flex; align-items:center; gap:8px; font-size:11px; }
+  .content-embed-source .source-icon { width:22px; height:22px; background:#eef3ff; border-radius:4px; display:flex; align-items:center; justify-content:center; font-size:11px; color:#4a90d9; }
+  .content-embed-source .source-label { font-weight:600; color:#4a90d9; }
+  .content-embed-source .source-path { color:#888; }
+  .content-embed-badge { font-size:9px; background:#eef3ff; color:#4a90d9; padding:2px 8px; border-radius:10px; font-weight:500; text-transform:uppercase; letter-spacing:0.5px; }
+  .content-embed-body { font-size:14px; line-height:1.7; color:#555; padding-left:4px; }
+  .content-embed-body .legal-num { font-weight:600; color:#333; }
+  .content-embed-actions { display:flex; gap:8px; margin-top:10px; padding-top:10px; border-top:1px solid #e8e9ec; }
+  .content-embed-actions button { background:none; border:1px solid #e2e4e9; border-radius:5px; padding:4px 10px; font-size:10px; color:#888; cursor:pointer; font-family:system-ui; }
+  .content-embed-actions button:hover { background:#eef3ff; color:#4a90d9; border-color:#d0dfff; }
+
+  /* Compact reference chip */
+  .ref-chip { display:inline-flex; align-items:center; gap:4px; background:#eef3ff; border:1px solid #d0dfff; border-radius:4px; padding:1px 8px 1px 6px; font-size:13px; color:#4a90d9; font-weight:500; cursor:pointer; text-decoration:none; vertical-align:baseline; }
+  .ref-chip:hover { background:#d0dfff; }
+  .ref-chip .ref-icon { font-size:11px; }
+
+  /* Ref tooltip preview */
+  .ref-tooltip { position:absolute; width:340px; background:white; border:1px solid #e2e4e9; border-radius:10px; box-shadow:0 8px 30px rgba(0,0,0,0.12); z-index:20; padding:14px 16px; font-family:system-ui; }
+  .ref-tooltip-header { font-size:12px; font-weight:600; color:#4a90d9; margin-bottom:8px; display:flex; align-items:center; gap:6px; }
+  .ref-tooltip-body { font-size:12px; line-height:1.6; color:#555; }
+  .ref-tooltip-footer { margin-top:8px; padding-top:8px; border-top:1px solid #f0f1f3; font-size:10px; color:#888; display:flex; justify-content:space-between; }
+  .ref-tooltip-footer a { color:#4a90d9; text-decoration:none; font-weight:500; }
+
+  /* Footnote marker */
+  .fn-marker { font-size:11px; color:#e67e22; font-weight:700; cursor:pointer; vertical-align:super; line-height:0; }
+  .fn-marker:hover { text-decoration:underline; }
+
+  /* Slash command dropdown */
+  .slash-dropdown { position:absolute; width:260px; background:white; border:1px solid #e2e4e9; border-radius:10px; box-shadow:0 8px 24px rgba(0,0,0,0.12); z-index:20; overflow:hidden; font-family:system-ui; }
+  .slash-dropdown-header { padding:8px 12px; font-size:10px; color:#888; text-transform:uppercase; letter-spacing:0.5px; border-bottom:1px solid #f0f1f3; }
+  .slash-item { display:flex; align-items:center; gap:10px; padding:8px 12px; cursor:pointer; font-size:12px; }
+  .slash-item:hover { background:#f8f9fa; }
+  .slash-item.selected { background:#eef3ff; }
+  .slash-item-icon { width:28px; height:28px; background:#f0f1f3; border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .slash-item-icon.ref { background:#eef3ff; color:#4a90d9; }
+  .slash-item-text .name { font-weight:500; color:#1a1a2e; }
+  .slash-item-text .desc { font-size:10px; color:#888; margin-top:1px; }
+
+  /* Content Library Panel */
+  .library-panel { background:white; border-left:1px solid #e2e4e9; display:flex; flex-direction:column; overflow:hidden; }
+  .library-header { padding:12px 16px; border-bottom:1px solid #e2e4e9; display:flex; align-items:center; justify-content:space-between; flex-shrink:0; }
+  .library-header h3 { font-size:13px; font-weight:600; }
+  .library-header .close-btn { background:none; border:none; font-size:16px; color:#888; cursor:pointer; padding:4px; }
+  .library-header .close-btn:hover { color:#1a1a2e; }
+
+  /* Library tabs */
+  .library-tabs { display:flex; border-bottom:1px solid #e2e4e9; flex-shrink:0; }
+  .library-tab { flex:1; text-align:center; padding:9px; font-size:11px; color:#888; cursor:pointer; border-bottom:2px solid transparent; font-weight:500; }
+  .library-tab.active { color:#4a90d9; border-bottom-color:#4a90d9; }
+  .library-tab:hover { color:#1a1a2e; }
+
+  /* Library search */
+  .library-search { padding:10px 14px; border-bottom:1px solid #e2e4e9; flex-shrink:0; }
+  .library-search input { width:100%; border:1px solid #e2e4e9; border-radius:6px; padding:7px 10px 7px 32px; font-size:12px; background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.3-4.3'/%3E%3C/svg%3E") 10px center no-repeat; }
+
+  /* Library tree */
+  .library-body { flex:1; overflow-y:auto; padding:8px 0; }
+  .tree-item { display:flex; align-items:center; gap:6px; padding:6px 14px; font-size:12px; cursor:pointer; }
+  .tree-item:hover { background:#f8f9fa; }
+  .tree-item.expanded { font-weight:500; }
+  .tree-toggle { width:16px; font-size:10px; color:#888; text-align:center; flex-shrink:0; }
+  .tree-icon { font-size:13px; flex-shrink:0; }
+  .tree-label { flex:1; }
+  .tree-children { padding-left:20px; }
+  .tree-leaf { display:flex; align-items:center; gap:6px; padding:5px 14px; font-size:11px; cursor:grab; border-radius:4px; }
+  .tree-leaf:hover { background:#eef3ff; }
+  .tree-leaf .drag-handle { color:#ccc; font-size:10px; cursor:grab; }
+  .tree-leaf .leaf-icon { font-size:11px; color:#4a90d9; }
+  .tree-leaf .leaf-label { flex:1; color:#333; }
+  .tree-leaf .leaf-action { font-size:10px; color:#4a90d9; opacity:0; font-weight:500; }
+  .tree-leaf:hover .leaf-action { opacity:1; }
+  .tree-leaf:hover .drag-handle { color:#888; }
+
+  /* Library search results */
+  .search-result { padding:10px 14px; border-bottom:1px solid #f0f1f3; cursor:pointer; }
+  .search-result:hover { background:#f8f9fa; }
+  .search-result .result-title { font-size:12px; font-weight:500; color:#1a1a2e; }
+  .search-result .result-path { font-size:10px; color:#888; margin-top:2px; }
+  .search-result .result-preview { font-size:11px; color:#666; margin-top:4px; line-height:1.4; }
+  .search-result .result-actions { display:flex; gap:6px; margin-top:6px; }
+  .search-result .result-action { font-size:10px; color:#4a90d9; font-weight:500; cursor:pointer; }
+
+  /* Recent items */
+  .recent-item { display:flex; align-items:center; gap:10px; padding:8px 14px; font-size:12px; cursor:pointer; }
+  .recent-item:hover { background:#f8f9fa; }
+  .recent-item .recent-icon { width:28px; height:28px; background:#eef3ff; border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:12px; color:#4a90d9; }
+  .recent-item .recent-text .name { font-weight:500; color:#1a1a2e; }
+  .recent-item .recent-text .meta { font-size:10px; color:#888; margin-top:1px; }
+  .recent-item .recent-time { font-size:10px; color:#888; margin-left:auto; }
+
+  /* Drop indicator */
+  .drop-indicator { border:2px dashed #4a90d9; border-radius:8px; background:rgba(74,144,217,0.05); padding:12px 16px; margin:12px 0; text-align:center; font-size:12px; color:#4a90d9; font-family:system-ui; }
+
+  .mockup-label { position:fixed; bottom:16px; right:16px; background:#1a1a2e; color:white; padding:6px 14px; border-radius:6px; font-size:11px; opacity:0.6; z-index:30; }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-brand"><div class="logo"></div><span>Acme Publishing</span></div>
+  <div class="topnav-links">
+    <a href="dashboard.html">Dashboard</a>
+    <a href="titles.html" class="active">My Titles</a>
+    <a href="manuscripts.html">Manuscripts</a>
+    <a href="production.html">Production</a>
+    <a href="messages.html">Messages <span class="badge">3</span></a>
+  </div>
+  <div class="topnav-right">
+    <span class="icon">&#9881;</span>
+    <span class="icon">&#128276;</span>
+    <div class="avatar">JD</div>
+  </div>
+</nav>
+
+<div class="subtabs">
+  <a href="title-detail.html">Overview</a>
+  <a href="#" class="active">Manuscripts</a>
+  <a href="#">Production</a>
+  <a href="#">Messages <span class="tab-badge">2</span></a>
+  <a href="#">Contracts</a>
+  <a href="#">Royalties</a>
+</div>
+
+<div class="editor-layout">
+  <!-- Editor Area -->
+  <div class="editor-area">
+    <!-- Toolbar -->
+    <div class="editor-toolbar">
+      <div class="tb-group">
+        <button class="tb-btn" title="Undo">&#8630;</button>
+        <button class="tb-btn" title="Redo">&#8631;</button>
+      </div>
+      <div class="tb-group">
+        <select class="tb-select">
+          <option>Paragraph</option>
+          <option>Heading 1</option>
+          <option>Heading 2</option>
+          <option>Heading 3</option>
+        </select>
+        <button class="tb-btn" title="Paragraph Number">&#182;</button>
+      </div>
+      <div class="tb-group">
+        <button class="tb-btn" title="Bold"><b>B</b></button>
+        <button class="tb-btn" title="Italic"><i>I</i></button>
+        <button class="tb-btn" title="Underline" style="text-decoration:underline;">U</button>
+        <button class="tb-btn" title="Strikethrough" style="text-decoration:line-through;">S</button>
+        <button class="tb-btn" title="Superscript" style="font-size:10px;vertical-align:super;">x²</button>
+        <button class="tb-btn" title="Subscript" style="font-size:10px;">x₂</button>
+      </div>
+      <div class="tb-group">
+        <button class="tb-btn" title="Ordered List">1.</button>
+        <button class="tb-btn" title="Unordered List">&bull;</button>
+        <button class="tb-btn" title="Description List">dl</button>
+        <button class="tb-btn" title="Indent">&#8677;</button>
+      </div>
+      <div class="tb-group">
+        <button class="tb-btn" title="Table">&#9638;</button>
+        <button class="tb-btn" title="Image">&#128247;</button>
+        <button class="tb-btn" title="Formula">&#402;</button>
+        <button class="tb-btn" title="Horizontal Line">&#8212;</button>
+      </div>
+      <div class="tb-group">
+        <button class="tb-btn" title="Footnote" style="color:#e67e22;font-weight:700;font-size:11px;">fn</button>
+        <button class="tb-btn active" title="Content Link" style="font-size:12px;">&#128279;</button>
+        <button class="tb-btn" title="Internal Link">&#8617;</button>
+        <button class="tb-btn" title="Web Link">&#127760;</button>
+      </div>
+      <div class="tb-group">
+        <button class="tb-btn" title="Quotation">&#8220;</button>
+        <button class="tb-btn" title="Details">&#9660;</button>
+      </div>
+      <div class="tb-spacer"></div>
+      <div class="tb-group" style="border-right:none;">
+        <button class="tb-btn active" title="Content Library" style="color:#4a90d9;font-size:14px;">&#128218;</button>
+      </div>
+    </div>
+
+    <!-- Editor Content -->
+    <div class="editor-content">
+      <div class="editor-content-inner">
+        <h1>Kommentar zum Baugesetzbuch — §42 Entschädigung bei Änderung der zulässigen Nutzung</h1>
+        <p style="font-size:13px;color:#888;margin-bottom:24px;">Dr. Maria Schulz &middot; Letzte Änderung: 14. April 2026 &middot; Entwurf</p>
+
+        <h2>I. Normzweck und systematische Stellung</h2>
+
+        <p><span class="paragraph-num">Rn. 1</span> Die Vorschrift des <a class="ref-chip"><span class="ref-icon">&#167;</span> 42 BauGB</a> regelt den Entschädigungsanspruch des Eigentümers bei Änderung der zulässigen Nutzung eines Grundstücks durch Bebauungsplan oder sonstige baurechtliche Maßnahmen. Die Norm steht im engen Zusammenhang mit den planungsrechtlichen Bestimmungen des Zweiten Teils des BauGB und bildet eine zentrale Ausgleichsregelung im System des städtebaulichen Planungsschadensrechts.</p>
+
+        <p><span class="paragraph-num">Rn. 2</span> Der Gesetzgeber hat mit dieser Regelung einen Ausgleich zwischen dem öffentlichen Interesse an wirksamer Stadtplanung und dem grundrechtlich geschützten Eigentumsrecht (Art. 14 GG) geschaffen.<sup class="fn-marker" title="Vgl. BVerfGE 58, 300 (330); BGH NJW 2019, 1234.">1</sup> Die praktische Bedeutung der Norm hat durch die zunehmende Nachverdichtung in Ballungsräumen erheblich zugenommen.</p>
+
+        <!-- Embedded quote block -->
+        <div class="content-embed">
+          <div class="content-embed-header">
+            <div class="content-embed-source">
+              <div class="source-icon">&#167;</div>
+              <span class="source-label">§42 BauGB</span>
+              <span class="source-path">Abs. 1–3</span>
+            </div>
+            <div class="content-embed-badge">Geltende Fassung</div>
+          </div>
+          <div class="content-embed-body">
+            <p style="margin-bottom:8px;"><span class="legal-num">(1)</span> Kann ein Grundstück, dessen Nutzung durch einen Bebauungsplan geändert wird, nicht mehr oder nur noch eingeschränkt genutzt werden, kann der Eigentümer eine angemessene Entschädigung in Geld verlangen.</p>
+            <p style="margin-bottom:8px;"><span class="legal-num">(2)</span> Die Entschädigung bemisst sich nach dem Unterschied zwischen dem Wert des Grundstücks auf Grund der zulässigen Nutzung vor und nach der Planänderung.</p>
+            <p style="margin-bottom:0;"><span class="legal-num">(3)</span> Der Entschädigungsanspruch entsteht nicht, wenn die als combzulässig festgesetzte Nutzung innerhalb einer Frist von sieben Jahren ab Zulässigkeit nicht ausgeübt worden ist.</p>
+          </div>
+          <div class="content-embed-actions">
+            <button>&#128279; Zur Quelle</button>
+            <button>&#8635; Aktualisieren</button>
+            <button>&#10005; Entfernen</button>
+          </div>
+        </div>
+
+        <h2>II. Tatbestandsvoraussetzungen</h2>
+
+        <h3>1. Änderung der zulässigen Nutzung</h3>
+
+        <p><span class="paragraph-num">Rn. 3</span> Der Entschädigungsanspruch setzt zunächst eine Änderung der zulässigen Nutzung voraus. Dabei ist nicht jede Planänderung erfasst, sondern nur solche, die zu einer messbaren Einschränkung der Nutzungsmöglichkeiten führen. Die herrschende Meinung in der Literatur folgt hier der Rechtsprechung des BGH, wonach eine bloße Umplanung ohne Substanzminderung nicht genügt (vgl. <a class="ref-chip"><span class="ref-icon">&#167;</span> 43 Abs. 2 BauGB</a>).</p>
+
+        <p><span class="paragraph-num">Rn. 4</span> Besondere Bedeutung erlangt die Siebenjahresfrist des Absatzes 3. Der Gesetzgeber wollte hiermit sicherstellen, dass nur tatsächlich genutzte oder konkret zur Nutzung vorgesehene Positionen entschädigungsfähig sind.<sup class="fn-marker" title="BT-Drucks. 15/2250, S. 67.">2</sup> Die Fristberechnung richtet sich nach</p>
+
+        <!-- Slash command dropdown (shown mid-typing) -->
+        <div style="position:relative;display:inline;">
+          <span style="color:#4a90d9;font-family:monospace;background:#eef3ff;padding:1px 4px;border-radius:3px;">/ref §44</span>
+          <span style="animation:blink 1s infinite;color:#4a90d9;">|</span>
+          <div class="slash-dropdown" style="position:absolute;top:24px;left:0;">
+            <div class="slash-dropdown-header">Content References</div>
+            <div class="slash-item selected">
+              <div class="slash-item-icon ref">&#167;</div>
+              <div class="slash-item-text">
+                <div class="name">§44 BauGB — Entschädigungspflichtige</div>
+                <div class="desc">Insert as compact reference</div>
+              </div>
+            </div>
+            <div class="slash-item">
+              <div class="slash-item-icon ref">&#167;</div>
+              <div class="slash-item-text">
+                <div class="name">§44a BauGB — Entschädigungsberechtigte</div>
+                <div class="desc">Insert as compact reference</div>
+              </div>
+            </div>
+            <div class="slash-dropdown-header">Actions</div>
+            <div class="slash-item">
+              <div class="slash-item-icon" style="background:#fff4e6;color:#e67e22;">&#8220;</div>
+              <div class="slash-item-text">
+                <div class="name">Embed §44 BauGB as quote block</div>
+                <div class="desc">Insert full text with source attribution</div>
+              </div>
+            </div>
+            <div class="slash-item">
+              <div class="slash-item-icon" style="background:#f3e8ff;color:#9b59b6;">fn</div>
+              <div class="slash-item-text">
+                <div class="name">Insert as footnote reference</div>
+                <div class="desc">Add §44 BauGB as footnote citation</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <br><br>
+
+        <!-- Drop indicator -->
+        <div class="drop-indicator">
+          &#8615; Drop content here to embed or reference
+        </div>
+
+        <p style="margin-top:12px;"><span class="paragraph-num">Rn. 5</span> Im Unterschied zu <a class="ref-chip"><span class="ref-icon">&#167;</span> 40 BauGB</a> (Entschädigung in Geld oder durch Übernahme) gewährt §42 ausschließlich einen Geldanspruch. Die Abgrenzung beider Normen ist in der Praxis häufig streitig und bildet einen Schwerpunkt der Kommentierung unter Rn. 12 ff.</p>
+
+        <!-- Ref tooltip (shown on hover) -->
+        <div style="position:relative;display:inline-block;">
+          <span style="position:relative;">
+            <a class="ref-chip" style="position:relative;"><span class="ref-icon">&#167;</span> 43 Abs. 3 BauGB</a>
+            <div class="ref-tooltip" style="position:absolute;bottom:32px;left:0;z-index:25;">
+              <div class="ref-tooltip-header">&#167; §43 Abs. 3 BauGB — Entschädigung und Verfahren</div>
+              <div class="ref-tooltip-body">
+                (3) Über die Entschädigung ist im Entschädigungsverfahren nach dem Fünften Teil zu entscheiden. Für die Bemessung der Entschädigung ist der Zeitpunkt maßgebend, in dem die Veränderungssperre wirksam geworden ist.
+              </div>
+              <div class="ref-tooltip-footer">
+                <span>Fassung: 01.01.2024</span>
+                <a href="#">Volltext anzeigen &rarr;</a>
+              </div>
+            </div>
+          </span>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Content Library Panel -->
+  <div class="library-panel">
+    <div class="library-header">
+      <h3>&#128218; Content Library</h3>
+      <button class="close-btn" title="Close panel">&times;</button>
+    </div>
+
+    <div class="library-tabs">
+      <div class="library-tab">Search</div>
+      <div class="library-tab active">Browse</div>
+      <div class="library-tab">Recent</div>
+    </div>
+
+    <div class="library-search">
+      <input placeholder="Filter...">
+    </div>
+
+    <div class="library-body">
+      <!-- Tree: BauGB -->
+      <div class="tree-item expanded">
+        <div class="tree-toggle">&#9660;</div>
+        <div class="tree-icon">&#128214;</div>
+        <div class="tree-label"><b>BauGB</b> — Baugesetzbuch</div>
+      </div>
+      <div class="tree-children">
+        <div class="tree-item expanded">
+          <div class="tree-toggle">&#9660;</div>
+          <div class="tree-icon">&#128196;</div>
+          <div class="tree-label">Zweiter Teil — Besonderes Städtebaurecht</div>
+        </div>
+        <div class="tree-children">
+          <div class="tree-item expanded">
+            <div class="tree-toggle">&#9660;</div>
+            <div class="tree-icon">&#128196;</div>
+            <div class="tree-label">Dritter Abschnitt — Planungsschadensrecht</div>
+          </div>
+          <div class="tree-children">
+            <div class="tree-leaf">
+              <div class="drag-handle">&#8942;&#8942;</div>
+              <div class="leaf-icon">&#167;</div>
+              <div class="leaf-label">§39 Vertrauensschaden</div>
+              <div class="leaf-action">Insert</div>
+            </div>
+            <div class="tree-leaf">
+              <div class="drag-handle">&#8942;&#8942;</div>
+              <div class="leaf-icon">&#167;</div>
+              <div class="leaf-label">§40 Entschädigung in Geld oder durch Übernahme</div>
+              <div class="leaf-action">Insert</div>
+            </div>
+            <div class="tree-leaf">
+              <div class="drag-handle">&#8942;&#8942;</div>
+              <div class="leaf-icon">&#167;</div>
+              <div class="leaf-label">§41 Entschädigung bei Begründung von Geh-, Fahr- und Leitungsrechten</div>
+              <div class="leaf-action">Insert</div>
+            </div>
+            <div class="tree-leaf" style="background:#eef3ff;border:1px solid #d0dfff;">
+              <div class="drag-handle">&#8942;&#8942;</div>
+              <div class="leaf-icon">&#167;</div>
+              <div class="leaf-label" style="font-weight:500;">§42 Entschädigung bei Änderung der zulässigen Nutzung</div>
+              <div class="leaf-action" style="opacity:1;">Current</div>
+            </div>
+            <div class="tree-leaf">
+              <div class="drag-handle">&#8942;&#8942;</div>
+              <div class="leaf-icon">&#167;</div>
+              <div class="leaf-label">§43 Entschädigung und Verfahren</div>
+              <div class="leaf-action">Insert</div>
+            </div>
+            <div class="tree-leaf">
+              <div class="drag-handle">&#8942;&#8942;</div>
+              <div class="leaf-icon">&#167;</div>
+              <div class="leaf-label">§44 Entschädigungspflichtige</div>
+              <div class="leaf-action">Insert</div>
+            </div>
+            <div class="tree-leaf">
+              <div class="drag-handle">&#8942;&#8942;</div>
+              <div class="leaf-icon">&#167;</div>
+              <div class="leaf-label">§44a Entschädigungsberechtigte</div>
+              <div class="leaf-action">Insert</div>
+            </div>
+          </div>
+        </div>
+        <div class="tree-item">
+          <div class="tree-toggle">&#9654;</div>
+          <div class="tree-icon">&#128196;</div>
+          <div class="tree-label">Vierter Abschnitt — Bodenordnung</div>
+        </div>
+      </div>
+
+      <!-- Tree: BauNVO -->
+      <div class="tree-item">
+        <div class="tree-toggle">&#9654;</div>
+        <div class="tree-icon">&#128214;</div>
+        <div class="tree-label"><b>BauNVO</b> — Baunutzungsverordnung</div>
+      </div>
+
+      <!-- Tree: BGB -->
+      <div class="tree-item">
+        <div class="tree-toggle">&#9654;</div>
+        <div class="tree-icon">&#128214;</div>
+        <div class="tree-label"><b>BGB</b> — Bürgerliches Gesetzbuch</div>
+      </div>
+
+      <!-- Tree: VwGO -->
+      <div class="tree-item">
+        <div class="tree-toggle">&#9654;</div>
+        <div class="tree-icon">&#128214;</div>
+        <div class="tree-label"><b>VwGO</b> — Verwaltungsgerichtsordnung</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="mockup-label">MOCKUP — Content Editor (Legal Commentary)</div>
+
+<style>
+  @keyframes blink { 0%,50% { opacity:1; } 51%,100% { opacity:0; } }
+</style>
+</body>
+</html>

@@ -29,5 +29,8 @@ Proof review workflow with page viewer, annotation tools, threaded comments, rev
 ### [Title Detail — Royalties Tab](title-royalties.html)
 Royalties view within a title: earn-out progress, sales by quarter/format/channel, royalty statements with PDF download, rates with escalators, and reserves against returns.
 
+### [Content Editor — Legal Commentary](content-editor.html)
+Full content editor for legal commentary with knkeditor toolbar, inline content references (compact chips and embedded quote blocks), slash command for quick references, drag & drop from the content library panel, and hover tooltips showing referenced content.
+
 ### [Messages](messages.html)
 Threaded messaging between author and publisher contacts. Threads are grouped by context (title or "General"). Every conversation is scoped to a title or general topic.
