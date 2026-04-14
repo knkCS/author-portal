@@ -1,0 +1,11 @@
+title: Author Portal
+description: Research & Documentation for the knk Author Portal
+theme: jekyll-theme-minimal
+baseurl: "/author-portal"
+url: "https://knkcs.github.io"
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: "default"
