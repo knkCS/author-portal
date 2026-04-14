@@ -65,6 +65,13 @@
   .conv-compose button { background:#4a90d9; color:white; border:none; border-radius:8px; padding:10px 20px; font-size:13px; cursor:pointer; font-weight:500; }
   .conv-compose .attach { background:white; border:1px solid #e2e4e9; border-radius:8px; padding:10px 12px; cursor:pointer; font-size:16px; }
 
+  /* Context Groups */
+  .context-group { border-bottom:1px solid #e2e4e9; }
+  .context-header { display:flex; align-items:center; gap:8px; padding:10px 16px; background:#f8f9fa; font-size:12px; font-weight:600; color:#555; cursor:pointer; }
+  .context-header:hover { background:#f0f1f3; }
+  .context-icon { font-size:14px; }
+  .context-badge { background:#e74c3c; color:white; border-radius:10px; padding:1px 7px; font-size:9px; font-weight:600; margin-left:auto; }
+
   .mockup-label { position:fixed; bottom:16px; right:16px; background:#1a1a2e; color:white; padding:6px 14px; border-radius:6px; font-size:11px; opacity:0.7; z-index:10; }
 </style>
 </head>
@@ -87,73 +94,106 @@
 </nav>
 
 <div class="subtabs">
-  <a href="#" class="active">All Messages</a>
+  <a href="#" class="active">All Contexts</a>
   <a href="#">Unread</a>
-  <a href="#">By Title</a>
 </div>
 
 <div class="messages-layout">
-  <!-- Thread List -->
+  <!-- Thread List — grouped by context -->
   <div class="thread-list">
     <div class="thread-search">
       <input placeholder="Search messages...">
     </div>
-    <div class="thread-item active unread">
-      <div class="thread-avatar" style="background:#4a90d9;">SC</div>
-      <div class="thread-content">
-        <div class="thread-name">Sarah Chen</div>
-        <div class="thread-title-tag">The Last Garden</div>
-        <div class="thread-preview">Proofs are ready for your review! Let me know if you have...</div>
+
+    <!-- New Message Button -->
+    <div style="padding:10px 12px;border-bottom:1px solid #e2e4e9;">
+      <button style="width:100%;background:#4a90d9;color:white;border:none;border-radius:6px;padding:8px;font-size:12px;cursor:pointer;font-weight:500;">+ New Message</button>
+    </div>
+
+    <!-- Context Group: The Last Garden -->
+    <div class="context-group">
+      <div class="context-header">
+        <div class="context-icon">&#128218;</div>
+        <span>The Last Garden</span>
+        <span class="context-badge">2</span>
       </div>
-      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">
-        <div class="thread-time">2h ago</div>
-        <div class="thread-unread-dot"></div>
+      <div class="thread-item active unread">
+        <div class="thread-avatar" style="background:#4a90d9;">SC</div>
+        <div class="thread-content">
+          <div class="thread-name">Sarah Chen <span style="font-weight:400;color:#888;">· Editor</span></div>
+          <div class="thread-preview">Proofs are ready for your review! Let me know if you have...</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">
+          <div class="thread-time">2h ago</div>
+          <div class="thread-unread-dot"></div>
+        </div>
+      </div>
+      <div class="thread-item unread">
+        <div class="thread-avatar" style="background:#e67e22;">LM</div>
+        <div class="thread-content">
+          <div class="thread-name">Lisa Martinez <span style="font-weight:400;color:#888;">· Production</span></div>
+          <div class="thread-preview">Cover design options attached. We went with the botanical...</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">
+          <div class="thread-time">1d ago</div>
+          <div class="thread-unread-dot"></div>
+        </div>
       </div>
     </div>
-    <div class="thread-item unread">
-      <div class="thread-avatar" style="background:#27ae60;">TB</div>
-      <div class="thread-content">
-        <div class="thread-name">Tom Baker</div>
-        <div class="thread-title-tag">Midnight Protocol</div>
-        <div class="thread-preview">Great progress on Chapter 12! I had a few thoughts on the...</div>
+
+    <!-- Context Group: Midnight Protocol -->
+    <div class="context-group">
+      <div class="context-header">
+        <div class="context-icon">&#128218;</div>
+        <span>Midnight Protocol</span>
+        <span class="context-badge">1</span>
       </div>
-      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">
-        <div class="thread-time">1d ago</div>
-        <div class="thread-unread-dot"></div>
-      </div>
-    </div>
-    <div class="thread-item unread">
-      <div class="thread-avatar" style="background:#e67e22;">LM</div>
-      <div class="thread-content">
-        <div class="thread-name">Lisa Martinez</div>
-        <div class="thread-title-tag">The Last Garden</div>
-        <div class="thread-preview">Cover design options attached. We went with the botanical...</div>
-      </div>
-      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">
-        <div class="thread-time">1d ago</div>
-        <div class="thread-unread-dot"></div>
+      <div class="thread-item unread">
+        <div class="thread-avatar" style="background:#27ae60;">TB</div>
+        <div class="thread-content">
+          <div class="thread-name">Tom Baker <span style="font-weight:400;color:#888;">· Senior Editor</span></div>
+          <div class="thread-preview">Great progress on Chapter 12! I had a few thoughts on the...</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">
+          <div class="thread-time">1d ago</div>
+          <div class="thread-unread-dot"></div>
+        </div>
       </div>
     </div>
-    <div class="thread-item">
-      <div class="thread-avatar" style="background:#9b59b6;">RD</div>
-      <div class="thread-content">
-        <div class="thread-name">Royalties Dept.</div>
-        <div class="thread-title-tag">General</div>
-        <div class="thread-preview">Your Q4 2025 royalty statement is now available in the...</div>
+
+    <!-- Context Group: Seeds of Tomorrow -->
+    <div class="context-group">
+      <div class="context-header">
+        <div class="context-icon">&#128218;</div>
+        <span>Seeds of Tomorrow</span>
       </div>
-      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">
-        <div class="thread-time">3d ago</div>
+      <div class="thread-item">
+        <div class="thread-avatar" style="background:#4a90d9;">SC</div>
+        <div class="thread-content">
+          <div class="thread-name">Sarah Chen <span style="font-weight:400;color:#888;">· Editor</span></div>
+          <div class="thread-preview">Final manuscript looks excellent. Just one small note on...</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">
+          <div class="thread-time">1w ago</div>
+        </div>
       </div>
     </div>
-    <div class="thread-item">
-      <div class="thread-avatar" style="background:#4a90d9;">SC</div>
-      <div class="thread-content">
-        <div class="thread-name">Sarah Chen</div>
-        <div class="thread-title-tag">Seeds of Tomorrow</div>
-        <div class="thread-preview">Final manuscript looks excellent. Just one small note on...</div>
+
+    <!-- Context Group: General -->
+    <div class="context-group">
+      <div class="context-header">
+        <div class="context-icon" style="font-size:12px;">&#9878;</div>
+        <span>General</span>
       </div>
-      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">
-        <div class="thread-time">1w ago</div>
+      <div class="thread-item">
+        <div class="thread-avatar" style="background:#9b59b6;">RD</div>
+        <div class="thread-content">
+          <div class="thread-name">Royalties Dept.</div>
+          <div class="thread-preview">Your Q4 2025 royalty statement is now available in the...</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">
+          <div class="thread-time">3d ago</div>
+        </div>
       </div>
     </div>
   </div>
@@ -163,9 +203,12 @@
     <div class="conv-header">
       <div>
         <h2>Sarah Chen</h2>
-        <div style="font-size:11px;color:#888;margin-top:2px;">Editor &middot; <span class="tag">The Last Garden</span></div>
+        <div style="font-size:11px;color:#888;margin-top:2px;">Editor</div>
       </div>
-      <div style="font-size:12px;color:#888;">Last active: 2 hours ago</div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <a href="title-detail.html" class="tag" style="text-decoration:none;">&#128218; The Last Garden</a>
+        <div style="font-size:11px;color:#888;">Last active: 2h ago</div>
+      </div>
     </div>
 
     <div class="conv-messages">

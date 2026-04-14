@@ -27,4 +27,7 @@ Single title view showing production timeline, editions, latest manuscripts, pen
 Proof review workflow with page viewer, annotation tools, threaded comments, review status, and approve/reject actions.
 
 ### [Messages](messages.html)
-Threaded messaging between author and publisher contacts. Thread list on the left, conversation on the right, organized by title.
+Threaded messaging between author and publisher contacts. Threads are grouped by context (title or "General"). Every conversation is scoped to a title or general topic.
+
+### [Title Detail — Messages Tab](title-messages.html)
+Messages tab within the title detail view. Shows only conversations scoped to this specific title, with a compact thread list and conversation view.
