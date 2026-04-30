@@ -59,7 +59,7 @@ A SaaS author portal for publishing houses to provide integrated collaboration w
 |---|---|---|
 | Frontend | React SPA with anker components | Consistent with knk ecosystem, enables white-labeling via runtime theming |
 | API layer | Go service (combined repo, two entrypoints) | Thin orchestration layer, same language as backend stack |
-| Auth | odon via OAuth2/PKCE | Already handles invitations, MFA, organizations, GDPR |
+| Auth | odon via OAuth2/PKCE | Handles MFA, organizations, GDPR. Member invitations on odon roadmap (required before pilot) |
 | Permissions | guardian (Zanzibar-pattern) | Maps perfectly to author-title-editor relational permissions |
 | Content/manuscripts | core CMS | Content versioning, TipTap editor, workflows, media library |
 | Forms | fieldkit | Author questionnaires, profile forms, metadata input |
@@ -299,6 +299,18 @@ Goal: Features that make the portal best-in-class.
 | Phase 2 (Growth) | ~25 features | Heavy (royalties, contracts, rights) |
 | Phase 3 (Differentiation) | ~15 features | Moderate |
 | Deferred / backlog | ~33 features | Varies |
+
+### 5.5 Timeline
+
+Estimated effort, assuming Claude Code as standard tooling for all engineers:
+
+| Phase | Scope summary | 1 engineer | 2 engineers |
+|---|---|---|---|
+| Phase 1 (MVP) | 34 features, publishing process only | 5–7 months | 3–4 months |
+| Phase 2 | ERP financial integration, contracts, additional ERP adapters (Klopotek), Notification Service extraction | rough — depends on adapter count | rough — depends on adapter count |
+| Phase 3 | Real-time collaboration, analytics, advanced rights | rough — depends on feature selection | rough — depends on feature selection |
+
+Phase 1 is the pilot-launch milestone. Detailed sequencing, dependencies, risks, and the customer-context timeline are in the [Services Status & Roadmap](2026-04-30-services-status-and-roadmap-design.md).
 
 ---
 
