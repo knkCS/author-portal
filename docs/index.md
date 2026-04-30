@@ -24,6 +24,7 @@ Research and documentation for the knk Author Portal — a SaaS solution for pub
 ## Design
 
 - [Design Specification](superpowers/specs/2026-04-14-author-portal-design.md) — Architecture, data model, phasing, and technical decisions
+- [Services Status & Roadmap](superpowers/specs/2026-04-30-services-status-and-roadmap-design.md) — Current state of dependencies, sequencing, and pilot-launch timeline
 
 ---
 
