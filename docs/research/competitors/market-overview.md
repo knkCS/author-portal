@@ -13,6 +13,7 @@
 3. [Publishing Management Platforms with Author-Facing Features](#3-publishing-management-platforms-with-author-facing-features)
 4. [CMS-Based Solutions (Drupal Focus)](#4-cms-based-solutions-drupal-focus)
 5. [Manuscript Management Systems](#5-manuscript-management-systems)
+5b. [Editor Components Used to Build Author Portals](#5b-editor-components-used-to-build-author-portals)
 6. [Modern SaaS Entrants](#6-modern-saas-entrants)
 7. [Self-Publishing Platforms with Portal Features](#7-self-publishing-platforms-with-portal-features)
 8. [Open-Source Author Portal Projects](#8-open-source-author-portal-projects)
@@ -407,6 +408,90 @@ Drupal has been used by several publishers and media organizations to build auth
   - Smaller market share and less proven at scale
   - Academic-only
   - Limited ecosystem integrations compared to ScholarOne/EM
+
+---
+
+## 5b. Editor Components Used to Build Author Portals
+
+These products are not author portals themselves — they are editing components that publishers (or vendors building portals) embed into a larger solution. Both are relevant pricing reference points and shape build-vs-buy decisions for any author portal vendor.
+
+### 5b.1 FontoXML
+
+- **URL:** https://www.fontoxml.com
+- **Overview:** Browser-based XML editor for non-technical authors of structured content. Modular suite consisting of Fonto Editor, Fonto Review, Fonto Content Quality, Fonto Document History, Fonto Output, plus the regulatory-focused Tridion One product. Sold as a component to be embedded into a larger publishing or content platform; Fonto does not provide a complete author-portal experience by itself.
+- **Core Features:**
+  - WYSIWYG-style XML authoring with real-time schema validation (DITA, JATS, NISO-STS, S1000D, custom XML schemas)
+  - Track changes, comments, review workflows
+  - AI-assisted authoring (customer-supplied LLM)
+  - Drag-and-drop, copy-paste, taxonomies, publication previews
+  - Modular: each Fonto product can be licensed independently
+- **Target Market:** STM (Scientific, Technical, Medical) publishing, technical documentation, aviation, life sciences, pharma, legislation, standards. Notable customers include BBC, VMware, Toyota, ISO/IEC, Swedish Medical Products Agency, Infinitas Learning, Thieme Meulenhoff. **No trade publishing customers visible.**
+- **Pricing Model (2024, EUR ex 21% VAT):**
+  - Fonto Editor: €317/named user/year or €830/concurrent user/year
+  - Fonto Document History: €254/named or €661/concurrent per year
+  - Fonto Content Quality: €192/named or €499/concurrent per year
+  - Fonto Review: €249/named or €650/concurrent per year
+  - **Full suite per named user: €1,012/year**
+  - **Full suite per concurrent user: €2,640/year**
+  - Fonto SDK license (development/integration only, unlimited): €1,897/month = €22,764/year
+- **Strengths:**
+  - Mature, schema-validated structured authoring with deep STM/regulated-content adoption
+  - Open architecture, designed to be embedded into larger systems
+  - Real-time validation prevents authors from creating invalid content
+  - Strong AI-assisted authoring features
+- **Weaknesses:**
+  - Only solves the editing problem — publishers must build dashboard, auth, royalties, production tracking, ERP integration around it
+  - XML-schema-driven model is overkill for trade publishing (which works in prose, not DITA/JATS)
+  - Per-user pricing penalizes publishers with large or fluctuating editorial teams
+  - No trade publishing presence
+- **Relevance to author portal:** A potential future integration if knk targets STM/educational customers. For trade publishers (current target market), Fonto is not a competitive threat; trade publishers do not evaluate Fonto.
+- **Competitive framing:** Knk's complete author portal can be priced near "Fonto Editor only" pricing for the same publisher size, while delivering the entire portal experience.
+
+### 5b.2 Tiptap
+
+- **URL:** https://tiptap.dev
+- **Overview:** Open-source rich-text editor framework (MIT-licensed) plus an optional commercial cloud platform (Tiptap Platform / Hocuspocus) for managed real-time collaboration, document storage, AI extensions, and tracked changes. Used by Notion, GitLab, Substack, knk's core CMS, and the proposed knk author portal. Editor itself is free; only platform features and managed cloud documents are priced.
+- **Core Features:**
+  - Headless rich-text editor with extensible JSON document model (ProseMirror-based)
+  - Real-time collaboration via Hocuspocus (open-source) or Tiptap Cloud
+  - Comments, version history, mentions, embeds, tables, code blocks
+  - AI extensions (Content AI), Tracked Changes (paid add-ons)
+  - Pages layouts, webhooks, API access (paid tiers)
+- **Target Market:** Application developers building text-editing experiences. Used across knowledge management, documentation, blogging, CMS, project management, and (now) publisher portals.
+- **Pricing Model (2026, USD):**
+  - Editor: **Free, open-source (MIT)**. Self-hosted Hocuspocus collaboration server: also free
+  - Tiptap Cloud Start: **$49/month** — 500 documents, 3 developers
+  - Tiptap Cloud Team: **$149/month** — 5,000 documents, 6 developers
+  - Tiptap Cloud Growth: **$999/month** — 50,000 documents, custom dev count
+  - Tiptap Cloud Enterprise: Custom (on-premises deployment, SOC 2 Type II, SLA-backed uptime)
+  - Add-ons (Content AI, Tracked Changes, additional document bundles): contact sales
+  - Annual billing: 20% discount
+- **Strengths:**
+  - Free editor — zero per-user cost
+  - Modern document model (JSON), prose-oriented, ideal for trade-publishing manuscripts
+  - Self-host option means total cost can be near zero
+  - Battle-tested at Notion/GitLab/Substack scale
+  - Active development, healthy ecosystem of extensions
+- **Weaknesses:**
+  - Not schema-validated — wrong tool for STM/DITA/JATS workflows (Fonto territory)
+  - Pro features (AI, tracked changes) require paid tier
+  - Document limits per environment may require upgrades for very large title catalogs
+- **Relevance to author portal:** Already specified in [Author Portal Design Specification §6.2](../../superpowers/specs/2026-04-14-author-portal-design.md). Knk inherits a free, mature, prose-oriented editor — this is a meaningful cost advantage versus competitors paying €317+/user/year for Fonto Editor.
+
+### 5b.3 Editor-Component Pricing Comparison
+
+For a mid-size publisher with 50 active editorial users:
+
+| Solution | Annual cost | What's included |
+|---|---|---|
+| Fonto Editor only (named user) | €15,850 | Editor only, schema-validated XML |
+| Fonto Editor + Review (named) | €28,300 | Editor + review/commenting |
+| Fonto full suite (named) | €50,600 | Editor + Review + Content Quality + History |
+| Tiptap (self-hosted) | ~€0 | Editor + collaboration backend |
+| Tiptap Cloud Team | ~€1,800 | Editor + managed cloud collaboration, 5,000 docs |
+| Tiptap Cloud Growth | ~€12,000 | Editor + cloud, 50,000 docs |
+
+The choice between Fonto and Tiptap is fundamentally a content-model decision (XML-schema-driven vs prose-oriented), not a pricing decision. For trade publishing, Tiptap is the appropriate tool.
 
 ---
 

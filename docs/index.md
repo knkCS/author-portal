@@ -19,6 +19,10 @@ Research and documentation for the knk Author Portal — a SaaS solution for pub
 
 - [Feature Requirements](research/features/requirements.md) — 107 features across 8 categories with priority and complexity ratings
 
+### Pricing
+
+- [Pricing Strategy](research/pricing/2026-05-04-pricing-strategy.md) — Proposed pricing model, competitor anchors, and customer-conversation framings
+
 ---
 
 ## Design
