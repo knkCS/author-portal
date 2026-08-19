@@ -5,7 +5,7 @@ The author-facing SaaS portal for publishing houses. This context currently cove
 ## Language
 
 **Publisher**:
-The tenant — a publishing house whose authors use the portal. Maps to an odon organization; every stored row is scoped to exactly one Publisher.
+The tenant — a publishing house whose authors use the portal. A Publisher is an odon organization; its portal tenancy is carried by one designated workspace under that organization (ADR-0010), and every stored row is scoped to it.
 _Avoid_: tenant, customer, client
 
 **Manuscript**:
