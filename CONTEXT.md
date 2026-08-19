@@ -11,3 +11,11 @@ _Avoid_: document, content, text
 **Section**:
 A self-contained, ordered part of a Manuscript, written and versioned as one unit — a trade book's chapter, a legal commentary's §. Each Section is one editor document (see ADR-0003).
 _Avoid_: chapter, part, document
+
+**Draft**:
+The single mutable working state of a Section, continuously autosaved as the author writes. Creating a Version copies the Draft; the Draft keeps evolving.
+_Avoid_: working copy, WIP
+
+**Version**:
+An immutable, numbered snapshot of a Section, created deliberately by an author or a workflow event, with an optional comment (see ADR-0004).
+_Avoid_: revision, snapshot, save
