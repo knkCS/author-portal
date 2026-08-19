@@ -4,6 +4,10 @@ The author-facing SaaS portal for publishing houses. This context currently cove
 
 ## Language
 
+**Publisher**:
+The tenant — a publishing house whose authors use the portal. Maps to an odon organization; every stored row is scoped to exactly one Publisher.
+_Avoid_: tenant, customer, client
+
 **Manuscript**:
 The written work an author creates and revises in the portal — an ordered container of Sections. In v1 it is written in the portal itself, not uploaded (see ADR-0002).
 _Avoid_: document, content, text
