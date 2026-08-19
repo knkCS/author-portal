@@ -1,6 +1,6 @@
 # v1 authenticates against odon from day one; guardian is deferred behind an authz seam
 
-authorhub requires odon OIDC bearer auth from its first commit (relying-party wiring copied from messengerhub), with no auth-disabled mode — reaffirming taskhub's ADR 0002 lesson that stubbed auth touches every handler on the way out. Authorization in v1 is a plain ownership check (an author edits their own Manuscripts) behind a small internal authz seam; guardian arrives behind that same interface when multi-role workflows (editor review, publisher admin) enter, since v1's single relationship doesn't need relation tuples and guardian's previously planned portal schema predates the Manuscript/Section model anyway.
+authorhub requires odon OIDC bearer auth from its first commit (relying-party wiring copied from messengerhub), with no auth-disabled mode — reaffirming taskhub's ADR 0002 lesson that stubbed auth touches every handler on the way out. Authorization in v1 is a plain check behind a small internal authz seam — an Author owns their Manuscripts, and an assigned Editor may access them (amended by ADR-0008, which added the Editor role); guardian arrives behind that same interface when richer role structures (publisher admin, imprint hierarchies) enter, since v1's two relationships don't need relation tuples and guardian's previously planned portal schema predates the Manuscript/Section model anyway.
 
 **Status:** accepted
 

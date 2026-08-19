@@ -16,6 +16,18 @@ _Avoid_: document, content, text
 A self-contained, ordered part of a Manuscript, written and versioned as one unit — a trade book's chapter, a legal commentary's §. Each Section is one editor document (see ADR-0003).
 _Avoid_: chapter, part, document
 
+**Editor**:
+The publisher-side person assigned to a Manuscript who reviews, comments, and makes Suggestions. Always the person — the writing surface is always called "knkeditor", never "the editor".
+_Avoid_: reviewer, staff
+
+**Comment**:
+A threaded remark anchored to a passage of a Section, exchanged between Author and Editor and resolvable.
+_Avoid_: annotation, note
+
+**Suggestion**:
+A tracked change proposed in a Section (by an Editor or the Author) that the Author accepts or rejects.
+_Avoid_: tracked change, redline
+
 **Draft**:
 The single mutable working state of a Section, continuously autosaved as the author writes. Creating a Version copies the Draft; the Draft keeps evolving.
 _Avoid_: working copy, WIP
