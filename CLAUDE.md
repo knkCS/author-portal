@@ -31,4 +31,4 @@ Default vocabulary: needs-triage, needs-info, ready-for-agent, ready-for-human, 
 
 ### Domain docs
 
-Single-context: `CONTEXT.md` + `docs/adr/` at the repo root. See `docs/agents/domain.md`.
+The decision record (ADRs 0001–0010 + the glossary) moved to **knkcs/authorhub** on 2026-08-20 — read `CONTEXT.md` + `docs/adr/` there. This repo's copies are pointer notes; the previous content stays in this repo's git history. See `docs/agents/domain.md`.
