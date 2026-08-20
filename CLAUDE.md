@@ -23,7 +23,7 @@ docs/
 
 ### Issue tracker
 
-Issues live in GitHub Issues on knkCS/author-portal, via the `gh` CLI. See `docs/agents/issue-tracker.md`.
+The live tracker is **knkcs/authorhub** — the single source of truth since 2026-08-20, when this repo's open issues were transferred there. File and work issues on authorhub (`gh ... --repo knkCS/authorhub`); this repo's own issues are the closed v1 tickets, kept as history. See `docs/agents/issue-tracker.md`.
 
 ### Triage labels
 

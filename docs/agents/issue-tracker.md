@@ -1,5 +1,12 @@
 # Issue tracker: GitHub
 
+> **Moved 2026-08-20:** the live tracker is **knkcs/authorhub** — the single
+> source of truth. All open issues were transferred there and new ones are
+> filed there (`gh ... --repo knkCS/authorhub`; do NOT infer the repo from
+> `git remote` in this clone). This repo's remaining issues are the closed v1
+> tickets, kept as history. The conventions below describe how the tracker is
+> operated — on authorhub.
+
 Issues and PRDs for this repo live as GitHub issues. Use the `gh` CLI for all operations.
 
 ## Conventions
